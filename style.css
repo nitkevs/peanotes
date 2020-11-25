@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+html, body, div, nav, footer,
+main, aside, header, h1 {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+  /*  --- Header ---  */
+
+header {
+  padding: 5px 25px;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #5d67d5, #4149aa);
+  color: #fff;
+  font-size: 15px;
+  line-height: 30px;
+}
+
+h1 {
+  float: left;
+  font-size: 26px;
+  line-height: 27px;
+  font-weight: normal;
+  font-family: 'Pacifico', cursive;
+}
+
+#header-navigation {
+  float: right;
+}
+
+header a {
+  display: inline-block;
+  margin-left: 10px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
+  /*  --- End of header ---  */
+
+  /*  --- Main ---  */
+
+main {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  margin: 20px auto;
+  padding: 0;
+  width: 90%;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+main a {
+  color: #196be6;
+  text-decoration: none;
+}
+
+#notes-list {
+  border-right: 1px solid #eee;
+  padding: 5px;
+}
+
+#note-content {
+  padding: 5px;
+}
