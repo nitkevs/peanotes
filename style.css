@@ -46,6 +46,14 @@ header a:hover {
   text-decoration: underline;
 }
 
+header h1 a {
+  font-weight: normal;
+}
+
+header h1 a:hover {
+  text-decoration: none;
+}
+
   /*  --- End of header ---  */
 
   /*  --- Main ---  */

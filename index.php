@@ -45,10 +45,10 @@
   </head>
   <body>
     <header>
-      <h1>Заметки</h1>
+      <h1><a href="./">Заметки</h1>
       <nav id="header-navigation">
-        <a href="">Добавить заметку</a>
-        <a href="">Справка</a>
+        <a href="note-edit.php">Добавить заметку</a>
+        <a href="help.php">Справка</a>
       </nav>
     </header>
     <main>
