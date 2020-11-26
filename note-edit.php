@@ -6,7 +6,7 @@
     $note_id = $_POST['note-id'];
   }
 
-  $title = $note_title ? "Редактировать заметку «{$note_title}»" : "Добавление новой заметки";
+  $title = ($note_title !== NULL) ? "Редактировать заметку «{$note_title}»" : "Добавление новой заметки";
 
 ?>
 
