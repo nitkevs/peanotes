@@ -10,7 +10,7 @@
   mysqli_query($db_connection, "SET NAMES 'utf8'");
 
   // Создаём таблицу notes, если она ещё не существует
-  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(100), note_content longtext, note_titles varchar(100))";
+  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timesamp varchar(16))";
   $result = mysqli_query($db_connection, $query) or die ("Ошибка " . mysqli_error($db_connection));
 
   // Если страница загружена из note-edit.php методом POST,
@@ -18,6 +18,7 @@
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $note_title = $_POST['note-title'];
     $note_content = $_POST['note-content'];
+    $note_creation_timesamp = $_POST['note-creation-timestamp'];
 
   //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
@@ -28,9 +29,21 @@
     $note_content = htmlspecialchars($note_content, ENT_QUOTES);
     $note_title = htmlspecialchars($note_title, ENT_QUOTES);
 
-  //  Записать результат в базу данных
-    $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}'";
-    $result = mysqli_query($db_connection, $query) or die ("Ошибка записи в базу данных" . mysqli_error($db_connection));
+  //  Записать результат в базу данных, если заметка ещё не существует
+    $query = "SELECT * FROM notes WHERE note_creation_timesamp='$note_creation_timesamp'";
+    $result = mysqli_query($db_connection, $query) or die ("Ошибка определения униальности записи" . mysqli_error($db_connection));
+
+    $note_is_unique = true;
+    for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) {
+      if ($row['note_creation_timesamp'] == $note_creation_timesamp) {
+          $note_is_unique = false;
+        }
+      }
+
+    if ($note_is_unique) {
+      $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timesamp='$note_creation_timesamp'";
+      $result = mysqli_query($db_connection, $query) or die ("Ошибка записи в базу данных" . mysqli_error($db_connection));
+    }
   }
 
 ?>
