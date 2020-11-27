@@ -33,6 +33,10 @@
     $query = "SELECT * FROM notes WHERE note_creation_timesamp='$note_creation_timesamp'";
     $result = mysqli_query($db_connection, $query));
 
+  // Если в БД существует хоть одна заметка с текущим значением timestamp
+  // (используемое тут как идентификатор для определения уникальности),
+  // $note_is_unique приравнять к false, что означает её неуникальность
+  // и как следствие отказаться от вставки её в БД.
     $note_is_unique = true;
     for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) {
       if ($row['note_creation_timesamp'] == $note_creation_timesamp) {
