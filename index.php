@@ -5,13 +5,13 @@
   $db_password = 'cdtnbr';
   $db_name = 'notes';
 
-  $db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name) or die("Ошибка соединения с базой данных" . mysqli_error($db_connection));
+  $db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
 
   mysqli_query($db_connection, "SET NAMES 'utf8'");
 
   // Создаём таблицу notes, если она ещё не существует
   $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timesamp varchar(16))";
-  $result = mysqli_query($db_connection, $query) or die ("Ошибка " . mysqli_error($db_connection));
+  $result = mysqli_query($db_connection, $query));
 
   // Если страница загружена из note-edit.php методом POST,
   // записать данные из полей ввода в переменные.
@@ -31,7 +31,7 @@
 
   //  Записать результат в базу данных, если заметка ещё не существует
     $query = "SELECT * FROM notes WHERE note_creation_timesamp='$note_creation_timesamp'";
-    $result = mysqli_query($db_connection, $query) or die ("Ошибка определения униальности записи" . mysqli_error($db_connection));
+    $result = mysqli_query($db_connection, $query));
 
     $note_is_unique = true;
     for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) {
@@ -42,7 +42,7 @@
 
     if ($note_is_unique) {
       $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timesamp='$note_creation_timesamp'";
-      $result = mysqli_query($db_connection, $query) or die ("Ошибка записи в базу данных" . mysqli_error($db_connection));
+      $result = mysqli_query($db_connection, $query);
     }
   }
 
