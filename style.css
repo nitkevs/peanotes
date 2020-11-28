@@ -78,13 +78,39 @@ main a {
   text-decoration: none;
 }
 
-#notes-list {
-  border-right: 1px solid #eee;
+#note-content {
   padding: 5px;
 }
 
-#note-content {
-  padding: 5px;
+#notes-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+#notes-list li {
+  border: 1px solid hsl(204 15% 90% / 1);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #eceff1;
+  padding: 14px 18px;
+  box-shadow: 1px 1px 2px #CFD8DC;
+}
+
+
+p.note-title {
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  height: 16px;
+  overflow: hidden;
+}
+
+p.note-content {
+  margin: 0;
+  max-height: 48px;
+  overflow: hidden;
 }
 
   /*  --- End of main ---  */

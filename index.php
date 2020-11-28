@@ -21,6 +21,11 @@
     $note_creation_timestamp = $_POST['note-creation-timestamp'];
     $note_is_canceled = $_POST['cancel'];
 
+    //  Если заголовк пуст - взять первые 70 символов контента
+    if ($note_title == '') {
+      $note_title = mb_substr($note_content, 0, 70)."...";
+    }
+
   // Преобразуем специальные символы
     $note_content = htmlspecialchars($note_content, ENT_QUOTES);
     $note_title = htmlspecialchars($note_title, ENT_QUOTES);
@@ -34,18 +39,17 @@
   //  Если заметка ещё не существует, записать её в БД
     if (!$note_exists & !$note_is_canceled) {
 
-      //  Если заголовк пуст - взять первые 70 символов контента
-      if ($note_title == '') {
-        $note_title = mb_substr($note_content, 0, 70)."...";
-      }
 
-      $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
-      $result = mysqli_query($db_connection, $query);
+    $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
+    $result = mysqli_query($db_connection, $query);
     }
   }
+
+    $query = "SELECT * FROM notes WHERE id > 0";
+    $result = mysqli_query($db_connection, $query);
+    for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
+
 ?>
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -64,7 +68,32 @@
     <main>
       <div id="notes">
         <div id="notes-list">
-          Здесь ещё ничего ещё нет.<br><a href="note-edit.php">Добавить заметку</a>
+<?php
+            if (!$notes) {
+              echo "Здесь ещё ничего ещё нет.<br><a href=\"note-edit.php\">Добавить заметку</a>";
+            } else {
+?>
+          <ul>
+<?php
+
+  foreach ($notes as $note) {
+    // ограничить длинну тизера заметки до 200 символов
+    $note_teaser = mb_substr($note['note_content'], 0, 200);
+    // заменить переводы строки тегами <br>
+    // $note_teaser = str_replace(array("\r\n", "\r", "\n"), '<br>', $note_teaser);
+    $note_teaser = nl2br($note_teaser);
+
+    echo <<<"NOTES"
+            <li>
+              <p class="note-title" title="{$note['note_title']}">{$note['note_title']}</p>
+              <p class="note-content">{$note_teaser}</p>
+            </li>
+NOTES;
+            }
+          }
+
+?>
+          </ul>
         </div>
         <div id="note-content">
           Содержимое
