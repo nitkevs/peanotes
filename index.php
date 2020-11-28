@@ -19,6 +19,7 @@
     $note_title = $_POST['note-title'];
     $note_content = $_POST['note-content'];
     $note_creation_timesamp = $_POST['note-creation-timestamp'];
+    $note_is_canceled = $_POST['cancel'];
 
   //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
@@ -36,7 +37,7 @@
     for ($note_exists = []; $row = mysqli_fetch_assoc($result); $note_exists[] = $row);
 
   //  Если заметка ещё не существует, записать её в БД
-    if (!$note_exists) {
+    if (!$note_exists & !$note_is_canceled) {
       $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timesamp='$note_creation_timesamp'";
       $result = mysqli_query($db_connection, $query);
     }
