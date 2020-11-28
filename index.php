@@ -11,7 +11,7 @@
 
   // Создаём таблицу notes, если она ещё не существует
   $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timesamp varchar(16))";
-  $result = mysqli_query($db_connection, $query));
+  $result = mysqli_query($db_connection, $query);
 
   // Если страница загружена из note-edit.php методом POST,
   // записать данные из полей ввода в переменные.
@@ -31,7 +31,7 @@
 
   //  Записать результат в базу данных, если заметка ещё не существует
     $query = "SELECT * FROM notes WHERE note_creation_timesamp='$note_creation_timesamp'";
-    $result = mysqli_query($db_connection, $query));
+    $result = mysqli_query($db_connection, $query);
 
   // Если в БД существует хоть одна заметка с текущим значением timestamp
   // (используемое тут как идентификатор для определения уникальности),
