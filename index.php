@@ -29,25 +29,19 @@
     $note_content = htmlspecialchars($note_content, ENT_QUOTES);
     $note_title = htmlspecialchars($note_title, ENT_QUOTES);
 
-  //  Записать результат в базу данных, если заметка ещё не существует
+  //  Записываем в $note_exists заметки, note_creation_timesamp которых
+  //  совпадает с note_creation_timesеamp текущей заметки
     $query = "SELECT * FROM notes WHERE note_creation_timesamp='$note_creation_timesamp'";
     $result = mysqli_query($db_connection, $query);
+    for ($note_exists = []; $row = mysqli_fetch_assoc($result); $note_exists[] = $row);
 
-  // Если в БД существует хоть одна заметка с текущим значением timestamp
-  // (используемое тут как идентификатор для определения уникальности),
-  // $note_is_unique приравнять к false, что означает её неуникальность
-  // и как следствие отказаться от вставки её в БД.
-    $note_is_unique = true;
-    for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row) {
-      if ($row['note_creation_timesamp'] == $note_creation_timesamp) {
-          $note_is_unique = false;
-        }
-      }
-
-    if ($note_is_unique) {
+  //  Если заметка ещё не существует, записать её в БД
+    if (!$note_exists) {
       $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timesamp='$note_creation_timesamp'";
       $result = mysqli_query($db_connection, $query);
     }
+  } elseif ($_SERVER['REQUEST_METHOD'] == "GET") {
+
   }
 
 ?>
