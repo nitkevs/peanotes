@@ -10,7 +10,7 @@
   mysqli_query($db_connection, "SET NAMES 'utf8'");
 
   // Создаём таблицу notes, если она ещё не существует
-  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timesamp varchar(16))";
+  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timestamp varchar(16))";
   $result = mysqli_query($db_connection, $query);
 
   // Если страница загружена из note-edit.php методом POST,
@@ -18,33 +18,31 @@
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $note_title = $_POST['note-title'];
     $note_content = $_POST['note-content'];
-    $note_creation_timesamp = $_POST['note-creation-timestamp'];
+    $note_creation_timestamp = $_POST['note-creation-timestamp'];
     $note_is_canceled = $_POST['cancel'];
-
-  //  Если заголовк пуст - взять первые 70 символов контента
-    if ($note_title == '') {
-      $note_title = mb_substr($note_content, 0, 70)."...";
-    }
 
   // Преобразуем специальные символы
     $note_content = htmlspecialchars($note_content, ENT_QUOTES);
     $note_title = htmlspecialchars($note_title, ENT_QUOTES);
 
-  //  Записываем в $note_exists заметки, note_creation_timesamp которых
+  //  Записываем в $note_exists заметки, note_creation_timestamp которых
   //  совпадает с note_creation_timesеamp текущей заметки
-    $query = "SELECT * FROM notes WHERE note_creation_timesamp='$note_creation_timesamp'";
+    $query = "SELECT * FROM notes WHERE note_creation_timestamp='$note_creation_timestamp'";
     $result = mysqli_query($db_connection, $query);
     for ($note_exists = []; $row = mysqli_fetch_assoc($result); $note_exists[] = $row);
 
   //  Если заметка ещё не существует, записать её в БД
     if (!$note_exists & !$note_is_canceled) {
-      $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timesamp='$note_creation_timesamp'";
+
+      //  Если заголовк пуст - взять первые 70 символов контента
+      if ($note_title == '') {
+        $note_title = mb_substr($note_content, 0, 70)."...";
+      }
+
+      $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
       $result = mysqli_query($db_connection, $query);
     }
-  } elseif ($_SERVER['REQUEST_METHOD'] == "GET") {
-
   }
-
 ?>
 
 
