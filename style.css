@@ -7,13 +7,17 @@ main, aside, header, h1, h2 {
   padding: 0;
 }
 
+body {
+  background: #f6f8f8;
+}
+
   /*  --- Header ---  */
 
 header {
   padding: 5px 25px;
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(to bottom, #5d67d5, #4149aa);
+  background: linear-gradient(to bottom, #455a64, #607d8b);
   color: #fff;
   font-size: 15px;
   line-height: 30px;
@@ -95,12 +99,12 @@ main a {
 }
 
 #notes-list li {
-  border: 1px solid #e2e6e9;
+  border: 1px solid #cfd8dc;
   border-radius: 8px;
   margin-bottom: 10px;
   background: #eceff1;
   padding: 14px 18px;
-  box-shadow: 1px 1px 2px #cfd8dc;
+  box-shadow: 1px 1px 3px #cfd8dc;
   cursor: pointer;
 }
 
@@ -113,6 +117,10 @@ main a {
 #notes-list li:hover {
   border: 1px solid #b0bec5;
   background: #cfd8dc;
+}
+
+#notes-list li.active:hover {
+  background: #78909c;
 }
 
 p.note-title {
