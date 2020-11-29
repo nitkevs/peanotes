@@ -105,7 +105,7 @@ echo "let notesContent = [{$notesContent}];\n";
     // заменить переводы строки тегами <br>
     $note_teaser = nl2br($note_teaser);
     echo <<<"NOTES"
-            <li onclick="noteOutput({$index})">
+            <li onclick="noteOutput(this, {$index})">
               <p class="note-title" title="{$note['note_title']}">{$note['note_title']}</p>
               <p class="note-teaser">{$note_teaser}</p>
             </li>
@@ -124,10 +124,20 @@ NOTES;
     </main>
   </body>
   <script>
-    // функция выводит кликнутую заметку на экран
-    function noteOutput(index) {
+    let oldActive;
+    // функция выводит выбранную заметку на экран
+    function noteOutput(activeNote, index) {
       //  в переменную output записываем блок note-content, куда будет выведена заметка
       let output = document.getElementById('note-content');
+      // Если в переменной oldActive есть какой-то блок,
+      if (oldActive) {
+        // удалить его из класса active
+        oldActive.classList.remove('active');
+        }
+      // а выбранному блоку присвоить класс active
+      activeNote.classList.add('active');
+      // записать выбранный активный блок в переменную oldActive
+      oldActive = activeNote;
       output.innerHTML = "<h2>" + notesTitle[index] + "</h2><p>" + notesContent[index] + "</p>";
     }
   </script>

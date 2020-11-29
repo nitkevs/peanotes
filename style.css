@@ -101,6 +101,18 @@ main a {
   background: #eceff1;
   padding: 14px 18px;
   box-shadow: 1px 1px 2px #cfd8dc;
+  cursor: pointer;
+}
+
+#notes-list li.active {
+  background: #455a64;
+  border: 1px solid #455a64;
+  color: #f0f0f0;
+}
+
+#notes-list li:hover {
+  border: 1px solid #b0bec5;
+  background: #cfd8dc;
 }
 
 p.note-title {
