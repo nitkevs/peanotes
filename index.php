@@ -53,6 +53,7 @@
     $query = "SELECT * FROM notes WHERE id > 0";
     $result = mysqli_query($db_connection, $query);
     for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
+    $notes = array_reverse($notes);
 ?>
 <!DOCTYPE html>
 <html>
