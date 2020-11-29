@@ -17,6 +17,7 @@
   // записать данные из полей ввода в переменные.
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $note_title = $_POST['note-title'];
+
     $note_content = $_POST['note-content'];
     $note_creation_timestamp = $_POST['note-creation-timestamp'];
     $note_is_canceled = $_POST['cancel'];
@@ -24,7 +25,11 @@
     //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
       $note_title = mb_substr($note_content, 0, 70)."...";
+
     }
+
+  // Удаляем переводы строк в заголовке заметки
+    $note_title = str_replace(array("\r\n", "\r", "\n"), ' ', $note_title);
 
   // Преобразуем специальные символы
     $note_content = htmlspecialchars($note_content, ENT_QUOTES);
