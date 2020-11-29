@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 html, body, div, nav, footer,
-main, aside, header, h1 {
+main, aside, header, h1, h2 {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -28,6 +28,10 @@ h1 {
 
 header h1 {
   float: left;
+}
+
+h2 {
+  margin: 0 0 18px 0;
 }
 
 #header-navigation {
@@ -79,7 +83,7 @@ main a {
 }
 
 #note-content {
-  padding: 5px;
+  padding: 14px 36px;
 }
 
 #notes-list ul {
