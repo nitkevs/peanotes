@@ -48,7 +48,6 @@
     $query = "SELECT * FROM notes WHERE id > 0";
     $result = mysqli_query($db_connection, $query);
     for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,8 +55,27 @@
     <meta charset="utf-8">
     <title>Заметки</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script>
+<?php
+  // записываем заголовки, id и текст заметок в три строки с форматом массива
+  foreach ($notes as $note) {
+    $notesId .= "'".$note['id']."', ";
+    // функция str_replace(array("\r\n", "\r", "\n"), '<br>', $string) заменяет
+    // все переводы строк тегом <br>. Без этого не получится корректных массивов js.
+    $notesTitle .= "'".str_replace(array("\r\n", "\r", "\n"), '<br>', $note['note_title'])."', ";
+    $notesContent .= "'".str_replace(array("\r\n", "\r", "\n"), '<br>', $note['note_content'])."', ";
+  }
+
+// передаём строки в качестве значений для массивов javascript.
+echo "let notesId = [{$notesId}];\n";
+echo "let notesTitle = [{$notesTitle}];\n";
+echo "let notesContent = [{$notesContent}];\n";
+?>
+    </script>
   </head>
   <body>
+
     <header>
       <h1><a href="./">Заметки</h1>
       <nav id="header-navigation">
@@ -70,25 +88,24 @@
         <div id="notes-list">
 <?php
             if (!$notes) {
-              echo "Здесь ещё ничего ещё нет.<br><a href=\"note-edit.php\">Добавить заметку</a>";
+              echo "Здесь ещё ничего нет.<br><a href=\"note-edit.php\">Добавить заметку</a>";
             } else {
 ?>
           <ul>
 <?php
-
+  $index = 0;
   foreach ($notes as $note) {
     // ограничить длинну тизера заметки до 200 символов
     $note_teaser = mb_substr($note['note_content'], 0, 200);
     // заменить переводы строки тегами <br>
-    // $note_teaser = str_replace(array("\r\n", "\r", "\n"), '<br>', $note_teaser);
     $note_teaser = nl2br($note_teaser);
-
     echo <<<"NOTES"
-            <li>
+            <li onclick="noteOutput({$index})">
               <p class="note-title" title="{$note['note_title']}">{$note['note_title']}</p>
-              <p class="note-content">{$note_teaser}</p>
+              <p class="note-teaser">{$note_teaser}</p>
             </li>
 NOTES;
+    $index++;
             }
           }
 
@@ -101,4 +118,12 @@ NOTES;
       </div>
     </main>
   </body>
+  <script>
+    // функция выводит кликнутую заметку на экран
+    function noteOutput(index) {
+      //  в переменную output записываем блок note-content, куда будет выведена заметка
+      let output = document.getElementById('note-content');
+      output.innerHTML = "<h2>" + notesTitle[index] + "</h2><p>" + notesContent[index] + "</p>";
+    }
+  </script>
 </html>

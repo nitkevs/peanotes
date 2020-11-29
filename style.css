@@ -107,7 +107,7 @@ p.note-title {
   overflow: hidden;
 }
 
-p.note-content {
+p.note-teaser {
   margin: 0;
   max-height: 48px;
   overflow: hidden;
