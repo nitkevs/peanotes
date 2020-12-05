@@ -1,5 +1,7 @@
 <?php
 
+  /*  Параметры БД, создание подключения  */
+
   $db_host = 'localhost';
   $db_user = 'admin';
   $db_password = 'cdtnbr';
@@ -9,29 +11,33 @@
 
   mysqli_query($db_connection, "SET NAMES 'utf8'");
 
+  /*  Работа с таблицей  */
+
   // Создаём таблицу notes, если она ещё не существует
   $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timestamp varchar(16))";
   $result = mysqli_query($db_connection, $query);
+
+  /*  Обработка входных данных  */
 
   // Если страница загружена из note-edit.php методом POST,
   // записать данные из полей ввода в переменные.
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $note_title = $_POST['note-title'];
-
     $note_content = $_POST['note-content'];
     $note_creation_timestamp = $_POST['note-creation-timestamp'];
     $note_is_canceled = $_POST['cancel'];
+    $to_delete_note = (bool)$_POST['delete-note'];
+    $edit_note = $_POST['edit-note'];
 
-    //  Если заголовк пуст - взять первые 70 символов контента
+  //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
       $note_title = mb_substr($note_content, 0, 70)."...";
-
     }
 
-  // Удаляем переводы строк в заголовке заметки
+  //  Удаляем переводы строк в заголовке заметки
     $note_title = str_replace(array("\r\n", "\r", "\n"), ' ', $note_title);
 
-  // Преобразуем специальные символы
+  //  Преобразуем специальные символы
     $note_content = htmlspecialchars($note_content, ENT_QUOTES);
     $note_title = htmlspecialchars($note_title, ENT_QUOTES);
 
@@ -42,19 +48,33 @@
     for ($note_exists = []; $row = mysqli_fetch_assoc($result); $note_exists[] = $row);
 
   //  Если заметка ещё не существует, записать её в БД
-    if (!$note_exists & !$note_is_canceled) {
-
-
+    if (!$note_exists && !$note_is_canceled && !$to_delete_note) {
     $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
     $result = mysqli_query($db_connection, $query);
     }
+
+  //  Удаляем заметку, если пользователь запросил это действие
+    if ($to_delete_note) {
+      $query = "DELETE FROM notes WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
+      mysqli_query($db_connection, $query) or die('Ошибка удаления');
+    }
+
+  // Если переданная старнице заметка редактировалась, перезаписать её заголовок и текст в БД.
+    if ($edit_note) {
+      $query = "UPDATE `notes` SET `note_title` = '{$note_title}', `note_content` = '{$note_content}' WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
+      mysqli_query($db_connection, $query) or die('Ошибка записи'.mysqli_error($db_connection).$note_title."<br>".$note_content);
+    }
   }
 
-    $query = "SELECT * FROM notes WHERE id > 0";
-    $result = mysqli_query($db_connection, $query);
-    for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
-    $notes = array_reverse($notes);
+  // Читаем БД, извлекам все заметки и записываем в массив $notes
+  $query = "SELECT * FROM notes WHERE id > 0";
+  $result = mysqli_query($db_connection, $query);
+  for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
+  // переворачиваем массив, чтобы заметки отображались в порядке убывания даты создания
+  $notes = array_reverse($notes);
+
 ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -106,7 +126,18 @@ echo "let notesContent = [{$notesContent}];\n";
     // заменить переводы строки тегами <br>
     $note_teaser = nl2br($note_teaser);
     echo <<<"NOTES"
-            <li onclick="noteOutput(this, {$index})">
+            <li onclick="noteOutput(this, {$index})" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);">
+              <div class="note-edit-buttons">
+                <form action="" method="post">
+                  <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php">
+                    <img src="icons/edit.png" alt="Редактировать">
+                  </button>
+                  <button title="Удалить" name="delete-note" value="1" formaction="">
+                    <img src="icons/delete.png" alt="Удалить">
+                  </button>
+                  <input type="hidden" name="note-creation-timestamp" value="{$note['note_creation_timestamp']}">
+                </form>
+              </div>
               <p class="note-title" title="{$note['note_title']}">{$note['note_title']}</p>
               <p class="note-teaser">{$note_teaser}</p>
             </li>
@@ -120,11 +151,13 @@ NOTES;
         </div>
         <div id="note-content">
         <?php
+
           if ($notes) {
             echo "Кликните любую заметку, чтобы увидеть её содержимое.";
           } else {
             echo "Добавьте заметки, чтобы просматривать их в этой области.";
           }
+
         ?>
         </div>
       </div>
@@ -147,5 +180,16 @@ NOTES;
       oldActive = activeNote;
       output.innerHTML = "<h2>" + notesTitle[index] + "</h2><p>" + notesContent[index] + "</p>";
     }
+
+    function showEditLinks(note) {
+      let noteEditButtons = note.children[0];
+      noteEditButtons.style.display = "block";
+    }
+
+    function hideEditLinks(note) {
+      let noteEditButtons = note.children[0];
+      noteEditButtons.style.display = "none";
+    }
+
   </script>
 </html>

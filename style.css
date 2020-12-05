@@ -99,6 +99,7 @@ main a {
 }
 
 #notes-list li {
+  position: relative;
   border: 1px solid #cfd8dc;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -134,6 +135,27 @@ p.note-teaser {
   margin: 0;
   max-height: 48px;
   overflow: hidden;
+}
+
+.note-edit-buttons {
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 5px;
+}
+.note-edit-buttons button {
+  background: #80808061;
+  border-radius: 3px;
+  border: 1px solid #99999961;
+  padding: 3px 4px 1px 4px;
+}
+
+.note-edit-buttons button:hover {
+  background: #808080e6;
+}
+
+li.active .note-edit-buttons button:hover {
+  background: #b3b3b3e6;
 }
 
   /*  --- End of main ---  */

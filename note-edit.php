@@ -1,9 +1,25 @@
 <?php
 
   if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $note_title = $_POST['note-title'];
-    $note_content = $_POST['note-content'];
-    $note_id = $_POST['note-id'];
+    $edit_note = $_POST['edit-note'];
+    $note_creation_timestamp = $_POST['note-creation-timestamp'];
+
+    //  Параметры БД, создание подключения
+    $db_host = 'localhost';
+    $db_user = 'admin';
+    $db_password = 'cdtnbr';
+    $db_name = 'notes';
+
+    $db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
+
+    mysqli_query($db_connection, "SET NAMES 'utf8'");
+
+    // Извлекаем из БД заголовок и текст заметки
+    $query = "SELECT * FROM notes WHERE note_creation_timestamp='$note_creation_timestamp'";
+    $result = mysqli_query($db_connection, $query);
+    $note = mysqli_fetch_assoc($result);
+    $note_title = $note['note_title'];
+    $note_content = $note['note_content'];
   }
 
   $title = ($note_title !== NULL) ? "Редактировать заметку «{$note_title}»" : "Добавление новой заметки";
@@ -26,7 +42,7 @@
       <label for="note-content">Текст заметки:</label><br>
       <textarea cols="60" rows="15" id="note-content" name="note-content"><?= $note_content ?></textarea><br>
       <input type="hidden" id="note-creation-timestamp" name="note-creation-timestamp" value="">
-      <button type="submit">Сохранить</button> <button form="cansel-form">Отмена</button>
+      <button type="submit" name="edit-note" value="<?= $edit_note ?>">Сохранить</button> <button form="cansel-form">Отмена</button>
     </form>
     <form action="./" method="post" id="cansel-form">
       <input type="hidden" name="cancel" value="true">
@@ -41,6 +57,8 @@
       if (!(noteTitle.value || noteContent.value)) {
         alert ('Пустая заметка не может быть сохранена.\nЗаполните хотя бы одно поле!');
         return false;
+      } else if (noteTitle.value) {
+        noteCreationTimestamp.value = '<?= $note_creation_timestamp ?>';
       } else {
         noteCreationTimestamp.value = Date.now();
       }
