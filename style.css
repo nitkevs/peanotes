@@ -26,12 +26,17 @@ header {
 h1 {
   font-size: 26px;
   line-height: 27px;
-  font-weight: normal;
-  font-family: 'Pacifico', cursive;
 }
 
 header h1 {
   float: left;
+  font-weight: normal;
+  font-family: 'Pacifico', cursive;
+}
+
+main h1 {
+  font-family: serif;
+  font-weight: bold;
 }
 
 h2 {
