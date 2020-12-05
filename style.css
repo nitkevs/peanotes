@@ -86,7 +86,7 @@ main a {
   text-decoration: none;
 }
 
-#note-content {
+div#note-content {
   padding: 14px 36px;
 }
 
@@ -168,6 +168,10 @@ li.active .note-edit-buttons button:hover {
 
 #note-edit-form input[type="text"], textarea, button {
   margin: 10px 0;
+}
+
+#note-edit-form textarea#note-content {
+  padding: 10px 16px;
 }
 
   /*  --- End of edit note form ---  */
