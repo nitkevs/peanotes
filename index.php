@@ -31,7 +31,8 @@
 
   //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
-      $note_title = mb_substr($note_content, 0, 70)."...";
+      $note_title = trim($note_content);
+      $note_title = mb_substr($note_title, 0, 70)."...";
     }
 
   //  Удаляем переводы строк в заголовке заметки
