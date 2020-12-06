@@ -15,7 +15,7 @@
     mysqli_query($db_connection, "SET NAMES 'utf8'");
 
     // Извлекаем из БД заголовок и текст заметки
-    $query = "SELECT * FROM pn_notes WHERE note_creation_timestamp='$note_creation_timestamp'";
+    $query = "SELECT * FROM `pn_notes` WHERE `note_creation_timestamp` = '{$note_creation_timestamp}'";
     $result = mysqli_query($db_connection, $query);
     $note = mysqli_fetch_assoc($result);
     $note_title = $note['note_title'];
