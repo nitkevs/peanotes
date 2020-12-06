@@ -53,11 +53,13 @@
     let noteTitle = document.getElementById('note-title');
     let noteContent = document.getElementById('note-content');
     let noteCreationTimestamp = document.getElementById('note-creation-timestamp');
+    let submitButon = document.querySelector('button[type="submit"]');
+    let editNote = submitButon.value;
     function formSubmit() {
       if (!(noteTitle.value || noteContent.value)) {
         alert ('Пустая заметка не может быть сохранена.\nЗаполните хотя бы одно поле!');
         return false;
-      } else if (noteTitle.value) {
+      } else if (editNote) {
         noteCreationTimestamp.value = '<?= $note_creation_timestamp ?>';
       } else {
         noteCreationTimestamp.value = Date.now();
