@@ -104,7 +104,6 @@
 ?>
           <ul>
 <?php
-  $index = 0;
   foreach ($notes as $note) {
     $note['note_content'] = nl2br($note['note_content']);
     echo <<<"NOTES"
@@ -124,7 +123,6 @@
           <p class="note-teaser">{$note['note_content']}</p>
         </li>
 NOTES;
-    $index++;
             }
           }
 
