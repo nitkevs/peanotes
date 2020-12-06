@@ -13,8 +13,8 @@
 
   /*  Работа с таблицей  */
 
-  // Создаём таблицу notes, если она ещё не существует
-  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(64), note_content longtext, note_creation_timestamp varchar(16))";
+  // Создаём таблицу pn_notes, если она ещё не существует
+  $query = "CREATE TABLE IF NOT EXISTS pn_notes (id int(6) primary key auto_increment, note_title varchar(64), note_content longtext, note_creation_timestamp varchar(16))";
   $result = mysqli_query($db_connection, $query);
 
   /*  Обработка входных данных  */
@@ -43,27 +43,27 @@
 
   //  Записываем в $note_exists заметки, note_creation_timestamp которых
   //  совпадает с note_creation_timesеamp текущей заметки
-    $query = "SELECT note_creation_timestamp note_creation_timestamp FROM notes WHERE note_creation_timestamp='$note_creation_timestamp'";
+    $query = "SELECT note_creation_timestamp note_creation_timestamp FROM pn_notes WHERE note_creation_timestamp='$note_creation_timestamp'";
     $result = mysqli_query($db_connection, $query);
     $note_exists =  mysqli_fetch_assoc($result);
 
   //  Если заметка ещё не существует, записать её в БД
     if (!$note_exists && !$note_is_canceled && !$to_delete_note) {
 
-      $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
+      $query = "INSERT INTO pn_notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
       $result = mysqli_query($db_connection, $query);
 
     } else if ($note_exists) {
 
     // Если переданная старнице заметка редактировалась, перезаписать её заголовок и текст в БД.
-      $query = "UPDATE `notes` SET `note_title` = '{$note_title}', `note_content` = '{$note_content}' WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
+      $query = "UPDATE `pn_notes` SET `note_title` = '{$note_title}', `note_content` = '{$note_content}' WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
       mysqli_query($db_connection, $query) or die('Ошибка записи'.mysqli_error($db_connection).$note_title."<br>".$note_content);
 
     }
 
   //  Удаляем заметку, если пользователь запросил это действие
     if ($to_delete_note) {
-      $query = "DELETE FROM notes WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
+      $query = "DELETE FROM pn_notes WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
       mysqli_query($db_connection, $query) or die('Ошибка удаления');
     }
   }
@@ -71,7 +71,7 @@
   /*  Конец обработки входных данных  */
 
   // Читаем БД, извлекам все заметки и записываем в массив $notes
-  $query = "SELECT * FROM notes WHERE id > 0";
+  $query = "SELECT * FROM pn_notes WHERE id > 0";
   $result = mysqli_query($db_connection, $query);
   for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
   // переворачиваем массив, чтобы заметки отображались в порядке убывания даты создания
