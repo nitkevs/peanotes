@@ -27,7 +27,6 @@
     $note_creation_timestamp = $_POST['note-creation-timestamp'];
     $note_is_canceled = $_POST['cancel'];
     $to_delete_note = (bool)$_POST['delete-note'];
-    $edit_note = $_POST['edit-note'];
 
   //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
@@ -50,8 +49,16 @@
 
   //  Если заметка ещё не существует, записать её в БД
     if (!$note_exists && !$note_is_canceled && !$to_delete_note) {
-    $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
-    $result = mysqli_query($db_connection, $query);
+
+      $query = "INSERT INTO notes SET note_title='{$note_title}', note_content='{$note_content}', note_creation_timestamp='$note_creation_timestamp'";
+      $result = mysqli_query($db_connection, $query);
+
+    } else if ($note_exists) {
+
+    // Если переданная старнице заметка редактировалась, перезаписать её заголовок и текст в БД.
+      $query = "UPDATE `notes` SET `note_title` = '{$note_title}', `note_content` = '{$note_content}' WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
+      mysqli_query($db_connection, $query) or die('Ошибка записи'.mysqli_error($db_connection).$note_title."<br>".$note_content);
+
     }
 
   //  Удаляем заметку, если пользователь запросил это действие
@@ -59,13 +66,9 @@
       $query = "DELETE FROM notes WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
       mysqli_query($db_connection, $query) or die('Ошибка удаления');
     }
-
-  // Если переданная старнице заметка редактировалась, перезаписать её заголовок и текст в БД.
-    if ($edit_note) {
-      $query = "UPDATE `notes` SET `note_title` = '{$note_title}', `note_content` = '{$note_content}' WHERE `note_creation_timestamp` = {$note_creation_timestamp}";
-      mysqli_query($db_connection, $query) or die('Ошибка записи'.mysqli_error($db_connection).$note_title."<br>".$note_content);
-    }
   }
+
+  /*  Конец обработки входных данных  */
 
   // Читаем БД, извлекам все заметки и записываем в массив $notes
   $query = "SELECT * FROM notes WHERE id > 0";
