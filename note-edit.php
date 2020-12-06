@@ -42,7 +42,7 @@
       <label for="note-content">Текст заметки:</label><br>
       <textarea cols="60" rows="15" id="note-content" name="note-content"><?= $note_content ?></textarea><br>
       <input type="hidden" id="note-creation-timestamp" name="note-creation-timestamp" value="">
-      <button type="submit" name="edit-note" value="<?= $edit_note ?>">Сохранить</button> <button form="cansel-form">Отмена</button>
+      <button type="submit" <?php if ($edit_note) echo "name=\"edit-note\" value=\"{$edit_note}\""; ?>>Сохранить</button> <button form="cansel-form">Отмена</button>
     </form>
     <form action="./" method="post" id="cansel-form">
       <input type="hidden" name="cancel" value="true">
