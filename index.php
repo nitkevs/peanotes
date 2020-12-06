@@ -14,7 +14,7 @@
   /*  Работа с таблицей  */
 
   // Создаём таблицу notes, если она ещё не существует
-  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(128), note_content longtext, note_creation_timestamp varchar(16))";
+  $query = "CREATE TABLE IF NOT EXISTS notes (id int(6) primary key auto_increment, note_title varchar(64), note_content longtext, note_creation_timestamp varchar(16))";
   $result = mysqli_query($db_connection, $query);
 
   /*  Обработка входных данных  */
@@ -31,7 +31,7 @@
   //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
       $note_title = trim($note_content);
-      $note_title = mb_substr($note_title, 0, 60)."...";
+      $note_title = mb_substr($note_title, 0, 57)."...";
     }
 
   //  Удаляем переводы строк в заголовке заметки
