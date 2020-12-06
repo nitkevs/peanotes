@@ -126,7 +126,7 @@ div#note-content {
 }
 
 #notes-list li.active:hover {
-  background: #78909c;
+  background: #5d737e;
 }
 
 p.note-title {
@@ -148,19 +148,16 @@ p.note-teaser {
   top: 0;
   right: 5px;
 }
+
 .note-edit-buttons button {
-  background: #80808061;
+  background: #adadadcc;
   border-radius: 3px;
-  border: 1px solid #99999961;
+  border: 1px solid #cccccccc;
   padding: 3px 4px 1px 4px;
 }
 
 .note-edit-buttons button:hover {
   background: #808080e6;
-}
-
-li.active .note-edit-buttons button:hover {
-  background: #b3b3b3e6;
 }
 
   /*  --- End of main ---  */

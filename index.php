@@ -189,7 +189,7 @@ NOTES;
 
     function hideEditLinks(note) {
       let noteEditButtons = note.children[0];
-      noteEditButtons.style.display = "none";
+      noteEditButtons.style.display = "block"; // noteEditButtons.style.display = "none";
     }
 
   </script>
