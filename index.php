@@ -44,9 +44,9 @@
 
   //  Записываем в $note_exists заметки, note_creation_timestamp которых
   //  совпадает с note_creation_timesеamp текущей заметки
-    $query = "SELECT * FROM notes WHERE note_creation_timestamp='$note_creation_timestamp'";
+    $query = "SELECT note_creation_timestamp note_creation_timestamp FROM notes WHERE note_creation_timestamp='$note_creation_timestamp'";
     $result = mysqli_query($db_connection, $query);
-    for ($note_exists = []; $row = mysqli_fetch_assoc($result); $note_exists[] = $row);
+    $note_exists =  mysqli_fetch_assoc($result);
 
   //  Если заметка ещё не существует, записать её в БД
     if (!$note_exists && !$note_is_canceled && !$to_delete_note) {
