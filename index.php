@@ -99,13 +99,16 @@
         <div id="notes-list">
 <?php
             if (!$notes) {
+              // Если заметок в БД нет, вывести надпись.
               echo "Здесь ещё ничего нет.<br><a href=\"note-edit.php\">Добавить заметку</a>";
             } else {
 ?>
           <ul>
 <?php
   foreach ($notes as $note) {
+    // Добавить тег <br> к переводам строк, чтобы они были отображены на странице.
     $note['note_content'] = nl2br($note['note_content']);
+    // Выводим все тизеры на экран
     echo <<<"NOTES"
         <li onclick="showNoteContent(this)" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);">
           <div class="note-edit-buttons">
