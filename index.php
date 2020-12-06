@@ -31,7 +31,7 @@
   //  Если заголовк пуст - взять первые 70 символов контента
     if ($note_title == '') {
       $note_title = trim($note_content);
-      $note_title = mb_substr($note_title, 0, 70)."...";
+      $note_title = mb_substr($note_title, 0, 60)."...";
     }
 
   //  Удаляем переводы строк в заголовке заметки
@@ -85,27 +85,8 @@
     <meta charset="utf-8">
     <title>Заметки</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-
-    <script>
-<?php
-  // записываем заголовки, id и текст заметок в три строки с форматом массива
-  foreach ($notes as $note) {
-    $notesId .= "'".$note['id']."', ";
-    // функция str_replace(array("\r\n", "\r", "\n"), '<br>', $string) заменяет
-    // все переводы строк тегом <br>. Без этого не получится корректных массивов js.
-    $notesTitle .= "'".str_replace(array("\r\n", "\r", "\n"), '<br>', $note['note_title'])."', ";
-    $notesContent .= "'".str_replace(array("\r\n", "\r", "\n"), '<br>', $note['note_content'])."', ";
-  }
-
-// передаём строки в качестве значений для массивов javascript.
-echo "let notesId = [{$notesId}];\n";
-echo "let notesTitle = [{$notesTitle}];\n";
-echo "let notesContent = [{$notesContent}];\n";
-?>
-    </script>
   </head>
   <body>
-
     <header>
       <h1><a href="./">Заметки</h1>
       <nav id="header-navigation">
@@ -125,26 +106,23 @@ echo "let notesContent = [{$notesContent}];\n";
 <?php
   $index = 0;
   foreach ($notes as $note) {
-    // ограничить длинну тизера заметки до 200 символов
-    $note_teaser = mb_substr($note['note_content'], 0, 200);
-    // заменить переводы строки тегами <br>
-    $note_teaser = nl2br($note_teaser);
+    $note['note_content'] = nl2br($note['note_content']);
     echo <<<"NOTES"
-            <li onclick="noteOutput(this, {$index})" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);">
-              <div class="note-edit-buttons">
-                <form action="" method="post">
-                  <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php">
-                    <img src="icons/edit.png" alt="Редактировать">
-                  </button>
-                  <button title="Удалить" name="delete-note" value="1" formaction="">
-                    <img src="icons/delete.png" alt="Удалить">
-                  </button>
-                  <input type="hidden" name="note-creation-timestamp" value="{$note['note_creation_timestamp']}">
-                </form>
-              </div>
-              <p class="note-title" title="{$note['note_title']}">{$note['note_title']}</p>
-              <p class="note-teaser">{$note_teaser}</p>
-            </li>
+        <li onclick="showNoteContent(this)" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);">
+          <div class="note-edit-buttons">
+            <form action="" method="post">
+              <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php">
+                <img src="icons/edit.png" alt="Редактировать">
+              </button>
+              <button title="Удалить" name="delete-note" value="1" formaction="">
+                <img src="icons/delete.png" alt="Удалить">
+              </button>
+              <input type="hidden" name="note-creation-timestamp" value="{$note['note_creation_timestamp']}">
+            </form>
+          </div>
+          <p class="note-title" title="{$note['note_title']}">{$note['note_title']}</p>
+          <p class="note-teaser">{$note['note_content']}</p>
+        </li>
 NOTES;
     $index++;
             }
@@ -169,10 +147,13 @@ NOTES;
   </body>
   <script>
     let oldActive;
+
     // функция выводит выбранную заметку на экран
-    function noteOutput(activeNote, index) {
+    function showNoteContent(activeNote) {
       //  в переменную output записываем блок note-content, куда будет выведена заметка
       let output = document.getElementById('note-content');
+      let noteTitle = activeNote.querySelector('.note-title').innerHTML;
+      let noteContent = activeNote.querySelector('.note-teaser').innerHTML;
       // Если в переменной oldActive есть какой-то блок,
       if (oldActive) {
         // удалить его из класса active
@@ -182,7 +163,7 @@ NOTES;
       activeNote.classList.add('active');
       // записать выбранный активный блок в переменную oldActive
       oldActive = activeNote;
-      output.innerHTML = "<h2>" + notesTitle[index] + "</h2><p>" + notesContent[index] + "</p>";
+      output.innerHTML = "<h2>" + noteTitle + "</h2><p>" + noteContent + "</p>";
     }
 
     function showEditLinks(note) {
