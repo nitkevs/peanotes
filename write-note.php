@@ -46,7 +46,9 @@
 
     } else {
 
-      $note->timestamp = time();
+      $date_u = date('U');
+      $date_b = date('B');
+      $note->timestamp = $date_u.$date_b;
 
       $query = "INSERT INTO `pn_notes` SET `note_title` = '{$note->title}', `note_content` = '{$note->content}', `note_creation_timestamp` = '{$note->timestamp}'";
       $result = mysqli_query($db_connection, $query);
