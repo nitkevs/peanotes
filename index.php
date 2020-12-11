@@ -43,7 +43,7 @@
 <?php
   foreach ($notes as $a_note) {
     // Добавить тег <br> к переводам строк, чтобы они были отображены на странице.
-    $a_note['note_content'] = nl2br($a_note['note_content']);
+    $a_note['content'] = nl2br($a_note['content']);
     // Выводим все тизеры на экран
     echo <<<"NOTES"
         <li onclick="showNoteContent(this)" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);">
@@ -56,12 +56,12 @@
                 <img src="icons/delete.png" alt="Удалить">
               </button>
               <input type="hidden" name="note-id" value="{$a_note['id']}">
-              <input type="hidden" name="note-title" value="{$a_note['note_title']}">
-              <input type="hidden" name="note-content" value="{$a_note['note_content']}">
+              <input type="hidden" name="note-title" value="{$a_note['title']}">
+              <input type="hidden" name="note-content" value="{$a_note['content']}">
             </form>
           </div>
-          <p class="note-title" title="{$a_note['note_title']}">{$a_note['note_title']}</p>
-          <p class="note-teaser">{$a_note['note_content']}</p>
+          <p class="note-title" title="{$a_note['title']}">{$a_note['title']}</p>
+          <p class="note-teaser">{$a_note['content']}</p>
         </li>
 NOTES;
             }

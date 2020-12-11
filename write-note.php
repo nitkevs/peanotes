@@ -25,6 +25,8 @@
     $note->is_edited = $_POST['edit-note'];
     $note->for_delition = (bool)$_POST['delete-note'];
 
+    $current_timestamp = time();
+
    //  Если заголовк пуст - взять первые 70 символов контента
     if ($note->title == '') {
       $note->title = $note->generate_title();
@@ -35,7 +37,9 @@
 
     if ($note->is_edited) {
 
-      $query = "UPDATE `pn_notes` SET `note_title` = '{$note->title}', `note_content` = '{$note->content}' WHERE `id` = {$note->id}";
+      $note->last_modified = $current_timestamp;
+
+      $query = "UPDATE `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `last_modified` = '{$note->last_modified}' WHERE `id` = {$note->id}";
       mysqli_query($db_connection, $query) or die('Ошибка записи'.mysqli_error($db_connection).$note->title."<br>".$note->content);
 
     } else if ($note->for_delition) {
@@ -46,12 +50,10 @@
 
     } else {
 
-      $date_u = date('U');
-      $date_b = date('B');
-      $note->timestamp = $date_u.$date_b;
+      $note->timestamp = $current_timestamp;
 
-      $query = "INSERT INTO `pn_notes` SET `note_title` = '{$note->title}', `note_content` = '{$note->content}', `note_creation_timestamp` = '{$note->timestamp}'";
-      $result = mysqli_query($db_connection, $query);
+      $query = "INSERT INTO `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `timestamp` = '{$note->timestamp}'";
+      $result = mysqli_query($db_connection, $query)or die('Ошибка записи'.mysqli_error($db_connection).$note->title."<br>".$note->content."<br>".$note->timestamp);
 
     }
 
