@@ -160,6 +160,18 @@ p.note-teaser {
   background: #808080e6;
 }
 
+#note-dates {
+  margin: 0 20px 8px 20px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  font-size: 13px;
+  color: #777;
+}
+
+#note-dates #last-modified {
+  text-align: right;
+}
+
   /*  --- End of main ---  */
 
   /*  --- Edit note form ---  */

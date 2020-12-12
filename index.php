@@ -44,9 +44,14 @@
   foreach ($notes as $a_note) {
     // Добавить тег <br> к переводам строк, чтобы они были отображены на странице.
     $a_note['content'] = nl2br($a_note['content']);
+    $a_note['date'] = date("Y-m-d H:i:s", $a_note['timestamp']);
+    if (isset($a_note['last_modified'])) {
+      $a_note['last_modified'] = date("Y-m-d H:i:s", $a_note['last_modified']);
+    }
+
     // Выводим все тизеры на экран
     echo <<<"NOTES"
-        <li onclick="showNoteContent(this)" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);">
+        <li onclick="showNoteContent(this)" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);" data-date="{$a_note['date']}" data-last-modified="{$a_note['last_modified']}">
           <div class="note-edit-buttons">
             <form action="./note-edit.php" method="post">
               <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php">
@@ -93,16 +98,23 @@ NOTES;
       let output = document.getElementById('note-content');
       let noteTitle = activeNote.querySelector('.note-title').innerHTML;
       let noteContent = activeNote.querySelector('.note-teaser').innerHTML;
+      let noteDate = "Создано:&nbsp;" + activeNote.dataset.date;
+      let noteLastModified = "";
+      if (activeNote.dataset.lastModified) {
+       noteLastModified = "Последнее изменение:&nbsp;" + activeNote.dataset.lastModified;
+       }
+      console.log (noteDate + " " + noteLastModified);
       // Если в переменной oldActive есть какой-то блок,
       if (oldActive) {
         // удалить его из класса active
         oldActive.classList.remove('active');
-        }
+      }
       // а выбранному блоку присвоить класс active
       activeNote.classList.add('active');
       // записать выбранный активный блок в переменную oldActive
       oldActive = activeNote;
-      output.innerHTML = "<h2>" + noteTitle + "</h2><p>" + noteContent + "</p>";
+
+      output.innerHTML = "<h2>" + noteTitle + "</h2>\n<div id=\"note-dates\">\n<div id=\"created\">" + noteDate + "</div>\n<div id=\"last-modified\">" + noteLastModified + "</div>\n</div><div>" + noteContent + "</div>";
     }
 
     function showEditLinks(note) {
