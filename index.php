@@ -43,7 +43,7 @@
 <?php
   foreach ($notes as $a_note) {
     // Добавить тег <br> к переводам строк, чтобы они были отображены на странице.
-    $a_note['content'] = nl2br($a_note['content']);
+    $a_note['html_content'] = nl2br($a_note['content']);
     $a_note['date'] = date("Y-m-d H:i:s", $a_note['timestamp']);
     if (isset($a_note['last_modified'])) {
       $a_note['last_modified'] = date("Y-m-d H:i:s", $a_note['last_modified']);
@@ -66,7 +66,7 @@
             </form>
           </div>
           <p class="note-title" title="{$a_note['title']}">{$a_note['title']}</p>
-          <p class="note-teaser">{$a_note['content']}</p>
+          <p class="note-teaser">{$a_note['html_content']}</p>
         </li>
 NOTES;
             }
