@@ -39,6 +39,7 @@ class Note {
   public function format() {
     //  Удаляем переводы строк в заголовке заметки
     $this->title = str_replace(array("\r\n", "\r", "\n"), ' ', $this->title);
+    $this->title = trim($this->title);
 
   //  Преобразуем специальные символы
     $this->content = htmlspecialchars($this->content, ENT_QUOTES);
