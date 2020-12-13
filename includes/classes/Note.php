@@ -28,21 +28,31 @@ class Note {
   public $is_edited;
   public $for_delition;
 
+  /* Функция генерирует заголовок на основании содержимого заметки.
+     По умолчанию берутся первые 37 символов и добавляется "...".
+     Если среди первых 40 символов встерчается перевод строки CR или LF,
+     заголовок берётся от начала заметки (после удаления начальных
+     пробелов и переводов строк), до этой позиции. Троеточие
+     в этом слуае не добавляется. */
 
   public function generate_title() {
-    //  Если заголовок пуст - взять первые 57 символов контента
     $this->title = trim($this->content);
-    $this->title = mb_substr($this->title, 0, 37)."...";
+
+    $first_nl_pos = mb_strpos($this->title, "\n") ?: mb_strlen($this->title);
+    $first_cr_pos = mb_strpos($this->title, "\r") ?: mb_strlen($this->title);
+    $end_pos = min($first_nl_pos, $first_cr_pos);
+
+    if ($end_pos > 40) {
+      $this->title = mb_substr($this->title, 0, 37)."...";
+    } else {
+      $this->title = mb_substr($this->title, 0, $end_pos);
+    }
     return $this->title;
   }
 
   public function format() {
-    //  Удаляем переводы строк в заголовке заметки
-    $this->title = str_replace(array("\r\n", "\r", "\n"), ' ', $this->title);
     $this->title = trim($this->title);
-
-  //  Преобразуем специальные символы
-    $this->content = htmlspecialchars($this->content, ENT_QUOTES);
     $this->title = htmlspecialchars($this->title, ENT_QUOTES);
+    $this->content = htmlspecialchars($this->content, ENT_QUOTES);
   }
 }
