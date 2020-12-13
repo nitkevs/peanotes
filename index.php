@@ -55,10 +55,10 @@
           <div class="note-edit-buttons">
             <form action="./note-edit.php" method="post">
               <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php">
-                <img src="icons/edit.png" alt="Редактировать">
+                <img src="images/icons/edit.png" alt="Редактировать">
               </button>
               <button title="Удалить" name="delete-note" value="1" formaction="./write-note.php">
-                <img src="icons/delete.png" alt="Удалить">
+                <img src="images/icons/delete.png" alt="Удалить">
               </button>
               <input type="hidden" name="note-id" value="{$a_note['id']}">
               <input type="hidden" name="note-title" value="{$a_note['title']}">
