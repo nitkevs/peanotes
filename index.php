@@ -118,12 +118,12 @@ NOTES;
     }
 
     function showEditLinks(note) {
-      let noteEditButtons = note.children[0];
+      let noteEditButtons = note.querySelector('.note-edit-buttons');
       noteEditButtons.style.display = "block";
     }
 
     function hideEditLinks(note) {
-      let noteEditButtons = note.children[0];
+      let noteEditButtons = note.querySelector('.note-edit-buttons');
       noteEditButtons.style.display = "none";
     }
 
