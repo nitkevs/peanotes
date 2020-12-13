@@ -54,10 +54,10 @@
         <li onclick="showNoteContent(this)" onmouseover="showEditLinks(this);" onmouseout="hideEditLinks(this);" data-date="{$a_note['date']}" data-last-modified="{$a_note['last_modified']}">
           <div class="note-edit-buttons">
             <form action="./note-edit.php" method="post">
-              <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php">
+              <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php" onclick="event.stopPropagation();">
                 <img src="images/icons/edit.png" alt="Редактировать">
               </button>
-              <button title="Удалить" name="delete-note" value="1" formaction="./write-note.php">
+              <button title="Удалить" name="delete-note" value="1" formaction="./write-note.php" onclick="event.stopPropagation();">
                 <img src="images/icons/delete.png" alt="Удалить">
               </button>
               <input type="hidden" name="note-id" value="{$a_note['id']}">
