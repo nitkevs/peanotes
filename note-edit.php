@@ -37,7 +37,7 @@
     <h1><?= $title ?>:</h1>
     <form action="./write-note.php" method="post" id="note-edit-form" onsubmit="return formSubmit(); ">
       <label for="note-title">Заголовок:</label><br>
-      <input type="text" size="45" maxlength="40" id="note-title" name="note-title" value="<?= $note->title ?>"><br>
+      <input type="text" size="45" maxlength="60" id="note-title" name="note-title" value="<?= $note->title ?>"><br>
       <label for="note-content">Текст заметки:</label><br>
       <textarea cols="60" rows="15" id="note-content" name="note-content"><?= $note->content ?></textarea><br>
 
