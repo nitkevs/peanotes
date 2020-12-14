@@ -38,9 +38,9 @@ class Note {
   public function generate_title() {
     $this->title = trim($this->content);
 
-    $first_nl_pos = mb_strpos($this->title, "\n") ?: mb_strlen($this->title);
+    $first_lf_pos = mb_strpos($this->title, "\n") ?: mb_strlen($this->title);
     $first_cr_pos = mb_strpos($this->title, "\r") ?: mb_strlen($this->title);
-    $end_pos = min($first_nl_pos, $first_cr_pos);
+    $end_pos = min($first_lf_pos, $first_cr_pos);
 
     if ($end_pos > 60) {
       $this->title = mb_substr($this->title, 0, 57)."...";
