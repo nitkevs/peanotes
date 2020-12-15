@@ -15,7 +15,7 @@
 
   $note = new Note();
 
-  /*  Вренменная функция  */
+  /*  Временная функция  */
 
   function send_error_message($mess, $err_mess, $query) {
     $_SESSION['error_message'] = $err_mess;
