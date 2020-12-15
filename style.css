@@ -77,6 +77,15 @@ main {
   width: 90%;
 }
 
+#db-errors {
+  padding: 10px;
+  line-height: 18px;
+  font-size: 13px;
+  font-family: sans-serif;
+  background: #ffb8b8;
+  border: 1px solid #bf9797;
+}
+
 #notes {
   display: grid;
   grid-template-columns: 25% 75%;

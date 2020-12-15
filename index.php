@@ -8,6 +8,8 @@
 
   require_once './includes/DB_connection.php';
 
+  session_start();
+
   // Читаем БД, извлекам все заметки и записываем в массив $notes
   $query = "SELECT * FROM `pn_notes` ORDER BY `id` DESC";
   $result = mysqli_query($db_connection, $query);
@@ -23,6 +25,14 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    <?php
+      if ($_SESSION['error_message'] || $_SESSION['my_err_mess'] || $_SESSION['query']) {
+        echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}</div>";
+        unset($_SESSION['error_message']);
+        unset($_SESSION['my_err_mess']);
+        unset($_SESSION['query']);
+      }
+    ?>
     <header>
       <h1><a href="./">Заметки</h1>
       <nav id="header-navigation">
