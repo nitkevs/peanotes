@@ -15,6 +15,17 @@
   $result = mysqli_query($db_connection, $query);
   for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
 
+  function show_errors() {
+    echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}";
+    echo "</div>";
+    unset($_SESSION['error_message']);
+    unset($_SESSION['my_err_mess']);
+    unset($_SESSION['query']);
+
+  }
+
+  $new_errors = ($_SESSION['error_message'] || $_SESSION['my_err_mess'] || $_SESSION['query']);
+
 ?>
 
 <!DOCTYPE html>
@@ -25,14 +36,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <?php
-      if ($_SESSION['error_message'] || $_SESSION['my_err_mess'] || $_SESSION['query']) {
-        echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}</div>";
-        unset($_SESSION['error_message']);
-        unset($_SESSION['my_err_mess']);
-        unset($_SESSION['query']);
-      }
-    ?>
+    <?php if ($new_errors) show_errors(); ?>
     <header>
       <h1><a href="./">Заметки</h1>
       <nav id="header-navigation">

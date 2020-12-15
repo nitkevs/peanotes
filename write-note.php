@@ -17,10 +17,12 @@
 
   /*  Вренменная функция  */
 
-  function show_error($mess, $err_mess, $query) {
+  function send_error_message($mess, $err_mess, $query) {
     $_SESSION['error_message'] = $err_mess;
     $_SESSION['my_err_mess'] = $mess;
     $_SESSION['query'] = $query;
+
+
   }
 
   /*  Конец временной функции  */
@@ -52,19 +54,19 @@
       $note->last_modified = $current_timestamp;
 
       $query = "UPDATE `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `last_modified` = '{$note->last_modified}' WHERE `id` = {$note->id}";
-      mysqli_query($db_connection, $query) or show_error('Ошибка записи', mysqli_error($db_connection), $query);
+      mysqli_query($db_connection, $query) or send_error_message('Ошибка записи', mysqli_error($db_connection), $query);
 
     } else if ($note->for_delition) {
 
   //  Удаляем заметку, если пользователь запросил это действие
       $query = "ааыапвапвпатро";
-      mysqli_query($db_connection, $query) or show_error('Ошибка удаления', mysqli_error($db_connection), $query);
+      mysqli_query($db_connection, $query) or send_error_message('Ошибка удаления', mysqli_error($db_connection), $query);
 
     } else {
 
       $note->timestamp = $current_timestamp;
       $query = "INSERT INTO `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `timestamp` = '{$note->timestamp}'";
-      $result = mysqli_query($db_connection, $query) or show_error('Ошибка записи', mysqli_error($db_connection), $query);
+      $result = mysqli_query($db_connection, $query) or send_error_message('Ошибка записи', mysqli_error($db_connection), $query);
 
     }
 
