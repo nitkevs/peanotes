@@ -21,8 +21,6 @@
     $_SESSION['error_message'] = $err_mess;
     $_SESSION['my_err_mess'] = $mess;
     $_SESSION['query'] = $query;
-
-
   }
 
   /*  Конец временной функции  */
@@ -59,7 +57,7 @@
     } else if ($note->for_delition) {
 
   //  Удаляем заметку, если пользователь запросил это действие
-      $query = "ааыапвапвпатро";
+      $query = "DELETE FROM `pn_notes` WHERE `id` = {$note->id}";
       mysqli_query($db_connection, $query) or send_error_message('Ошибка удаления', mysqli_error($db_connection), $query);
 
     } else {
