@@ -16,8 +16,7 @@
   for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
 
   function show_errors() {
-    echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}";
-    echo "</div>";
+    echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}</div>";
     unset($_SESSION['error_message']);
     unset($_SESSION['my_err_mess']);
     unset($_SESSION['query']);
