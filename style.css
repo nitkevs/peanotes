@@ -30,8 +30,12 @@ h1 {
 
 header h1 {
   float: left;
-  font-weight: normal;
+  padding: 0 31px;
+  background: url('images/icons/peanut.png') no-repeat;
+  background-position: 0 -1px;
   font-family: 'Pacifico', cursive;
+  font-size: 30px;
+  line-height: 42px;
 }
 
 main h1 {
@@ -45,6 +49,7 @@ h2 {
 
 #header-navigation {
   float: right;
+  padding: 5px 0;
 }
 
 header a {

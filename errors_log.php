@@ -1,8 +1,9 @@
 <?php
 
-$title = "Лог ошибок операций с БД";
-
-$log = file_get_contents("db_errors.log");
+  $title = "Лог ошибок операций с БД";
+  $root_dir = "/php/peanotes";
+  $favicon = "/images/icons/favicon.ico";
+  $log = file_get_contents("db_errors.log");
 
 ?>
 
@@ -12,6 +13,7 @@ $log = file_get_contents("db_errors.log");
     <meta charset="utf-8">
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="<?= $root_dir.$favicon ?>">
   </head>
   <body>
     <main>

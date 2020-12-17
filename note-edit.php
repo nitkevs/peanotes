@@ -22,6 +22,9 @@
   }
 
   $title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
+  $root_dir = "/php/peanotes";
+  $favicon = "/images/icons/favicon.ico";
+
 
 ?>
 
@@ -31,6 +34,7 @@
     <meta charset="utf-8">
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="<?= $root_dir.$favicon ?>">
   </head>
   <body>
     <main>

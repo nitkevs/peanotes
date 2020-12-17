@@ -10,6 +10,10 @@
 
   session_start();
 
+  $title = "Peanotes";
+  $root_dir = "/php/peanotes";
+  $favicon = "/images/icons/favicon.ico";
+
   // Читаем БД, извлекам все заметки и записываем в массив $notes
   $query = "SELECT * FROM `pn_notes` ORDER BY `id` DESC";
   $result = mysqli_query($db_connection, $query);
@@ -51,13 +55,14 @@ function show_errors() {
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Заметки</title>
+    <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="<?= $root_dir.$favicon ?>">
   </head>
   <body>
     <?php if ($new_errors) show_errors(); ?>
     <header>
-      <h1><a href="./">Заметки</h1>
+      <h1><a href="./"><?= $title ?></h1>
       <nav id="header-navigation">
         <a href="note-edit.php">Добавить заметку</a>
         <a href="help.php">Справка</a>
