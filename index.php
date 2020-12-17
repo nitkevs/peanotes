@@ -103,10 +103,10 @@ function show_errors() {
         </li>
 NOTES;
             }
+          echo "</ul>";
           }
 
 ?>
-          </ul>
         </div>
         <div id="note-content">
         <?php
