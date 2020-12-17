@@ -15,13 +15,33 @@
   $result = mysqli_query($db_connection, $query);
   for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
 
-  function show_errors() {
-    echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}</div>";
-    unset($_SESSION['error_message']);
-    unset($_SESSION['my_err_mess']);
-    unset($_SESSION['query']);
+function show_errors() {
 
+  echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}<br><a href=\"errors_log.php\">Просмотреть лог ошибок</a></div>";
+
+  /* Записать ошибки в лог файл */
+
+  $file_content = file_get_contents("db_errors.txt");
+
+  if ($file_content) {
+    $message_separator = "\n\n----------------------------------\n\n";
   }
+
+  $error_message = date("Y-m-d H:i:s", time())."\n\n{$_SESSION['my_err_mess']}\n\n{$_SESSION['error_message']}\n\n{$_SESSION['query']}".$message_separator.$file_content;
+
+  $file = fopen("db_errors.txt", 'w')/* or die ("Не могу открыть файл")*/;
+
+  fwrite($file, $error_message);
+
+  fclose($file);
+
+  /* Удалить значения переменных сессии, чтобы после перезагрузки страницы сообщение не выводилось */
+
+  unset($_SESSION['error_message']);
+  unset($_SESSION['my_err_mess']);
+  unset($_SESSION['query']);
+
+}
 
   $new_errors = ($_SESSION['error_message'] || $_SESSION['my_err_mess'] || $_SESSION['query']);
 

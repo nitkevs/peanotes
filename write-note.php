@@ -63,7 +63,7 @@
     } else {
 
       $note->timestamp = $current_timestamp;
-      $query = "INSERT INTO `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `timestamp` = '{$note->timestamp}'";
+      $query = "INSERT INTO `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `timestamp` = NULL";
       $result = mysqli_query($db_connection, $query) or send_error_message('Ошибка записи', mysqli_error($db_connection), $query);
 
     }
