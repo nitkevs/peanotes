@@ -21,7 +21,7 @@ function show_errors() {
 
   /* Записать ошибки в лог файл */
 
-  $file_content = file_get_contents("db_errors.txt");
+  $file_content = file_get_contents("db_errors.log");
 
   if ($file_content) {
     $message_separator = "\n\n----------------------------------\n\n";
@@ -29,7 +29,7 @@ function show_errors() {
 
   $error_message = date("Y-m-d H:i:s", time())."\n\n{$_SESSION['my_err_mess']}\n\n{$_SESSION['error_message']}\n\n{$_SESSION['query']}".$message_separator.$file_content;
 
-  $file = fopen("db_errors.txt", 'w');
+  $file = fopen("db_errors.log", 'w');
 
   fwrite($file, $error_message);
 

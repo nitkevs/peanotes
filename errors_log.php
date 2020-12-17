@@ -2,7 +2,7 @@
 
 $title = "Лог ошибок операций с БД";
 
-$log = file_get_contents("db_errors.txt");
+$log = file_get_contents("db_errors.log");
 
 ?>
 
@@ -27,5 +27,4 @@ $log = file_get_contents("db_errors.txt");
     </p>
     </main>
   </body>
-
 </html>
