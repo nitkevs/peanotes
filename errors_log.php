@@ -16,14 +16,15 @@ $log = file_get_contents("db_errors.txt");
   <body>
     <main>
     <h1><?= $title ?>:</h1>
+    <p>
     <?php
     if ($log) {
       echo "<pre>\n{$log}\n</pre>";
     } else {
       echo "Нет сообщений об ошибках.";
     }
-
     ?>
+    </p>
     </main>
   </body>
 

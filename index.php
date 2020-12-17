@@ -29,7 +29,7 @@ function show_errors() {
 
   $error_message = date("Y-m-d H:i:s", time())."\n\n{$_SESSION['my_err_mess']}\n\n{$_SESSION['error_message']}\n\n{$_SESSION['query']}".$message_separator.$file_content;
 
-  $file = fopen("db_errors.txt", 'w')/* or die ("Не могу открыть файл")*/;
+  $file = fopen("db_errors.txt", 'w');
 
   fwrite($file, $error_message);
 

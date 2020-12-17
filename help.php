@@ -18,7 +18,6 @@ $page_content = nl2br(file_get_contents("README.txt"));
   <p>
   <a href="./">На главную</a>
   </p>
-
   <?= $page_content ?>
   <p>
   <a href="./">На главную</a>
