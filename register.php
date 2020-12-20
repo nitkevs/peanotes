@@ -4,6 +4,8 @@ $title = "Регистрация";
 $root_dir = "/php/peanotes";
 $favicon = "/images/icons/favicon.ico";
 
+include_once $_SERVER['DOCUMENT_ROOT'].$root_dir."/includes/classes/Captcha.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ $favicon = "/images/icons/favicon.ico";
       font-weight: bold;
     }
 
-    .term-conditions {
+    .term-conditions, #captcha {
       grid-column-start: 1;
       grid-column-end: 3;
     }
@@ -43,6 +45,13 @@ $favicon = "/images/icons/favicon.ico";
 
     .term-conditions a:hover {
       text-decoration: underline;
+    }
+
+    #captcha {
+      margin: 0;
+      padding: 12px 18px;
+      background: #f8f7d3;
+      border: 1px solid #e6e6bc;
     }
 
     </style>
@@ -69,12 +78,27 @@ $favicon = "/images/icons/favicon.ico";
       <input type="email" id="email" name="email">
       <div class="description">Это поле необязательно, но с помощью e-mail можно, в случае чего, восстановить пароль.</div>
 
+      <?php
+        $captcha = new Captcha();
+        $captcha->first_argument = $captcha->generate_argument();
+        $captcha->second_argument = $captcha->generate_argument();
+      ?>
+
+      <div id="captcha">
+      <div><label for="captha-ansqer" class="required">Введите ответ на контрольный вопрос, чтобы подтвердить, что вы человек. Например, на вопрос "Два плюс три" введите ответ 5 (цифрой).</label></div>
+        <?php echo $captcha->first_argument." + ".$captcha->second_argument." = ";
+
+        ?>
+        <input type="text" maxlength="1" size="1" id="captha-ansqer" name="captcha" required>
+    </div>
+
       <div class="term-conditions">
         <input type="checkbox" name="conditions-consent" id="conditions-consent" required> <label for="conditions-consent" class="required">Я согласен с <a href="javascript: showTerms();">правилами использования сервиса</a>.</label>
       </div>
       <button>Отправить</button>
     </form>
     <iframe src="term-conditions.php" id="term-conditions"></iframe>
+
     </main>
   </body>
   <script>
@@ -160,7 +184,8 @@ $favicon = "/images/icons/favicon.ico";
       }
     });
 
-// Функция проверки совпадения паролей
+
+
 // Капча
 // вынести всё во внешний файл
 
