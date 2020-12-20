@@ -27,9 +27,22 @@ $favicon = "/images/icons/favicon.ico";
       font-weight: bold;
     }
 
-    .termConditions {
+    .term-conditions {
       grid-column-start: 1;
       grid-column-end: 3;
+    }
+
+    iframe#term-conditions {
+      display: none;
+      width: 75%;
+      margin: 0 auto;
+      height: 300px;
+      border: 1px solid #bbb;
+      border-radius: 2px;
+    }
+
+    .term-conditions a:hover {
+      text-decoration: underline;
     }
 
     </style>
@@ -56,12 +69,12 @@ $favicon = "/images/icons/favicon.ico";
       <input type="email" id="email" name="email">
       <div class="description">Это поле необязательно, но с помощью e-mail можно, в случае чего, восстановить пароль.</div>
 
-      <div class="termConditions">
-        <input type="checkbox" name="termConditions" id="termConditions" required> <label for="termConditions" class="required">Я согласен с правилами использования сервиса.</label>
+      <div class="term-conditions">
+        <input type="checkbox" name="conditions-consent" id="conditions-consent" required> <label for="conditions-consent" class="required">Я согласен с <a href="javascript: showTerms();">правилами использования сервиса</a>.</label>
       </div>
       <button>Отправить</button>
     </form>
-
+    <iframe src="term-conditions.php" id="term-conditions"></iframe>
     </main>
   </body>
   <script>
@@ -128,8 +141,23 @@ $favicon = "/images/icons/favicon.ico";
       }
     });
 
+    function showTerms() {
+      let frame = document.getElementById('term-conditions');
+      frame.style.display = "block";
+      frame.scrollIntoView({behavior: 'smooth'});
+      console.log(frame);
+    }
 
 
+// Функция проверки совпадения паролей
+// Согласие с правилами
+// Капча
+// вынести всё во внешний файл
 
+// Проврка и запись данных в БД
+// переадресация на главную
+// вынесение стилей в отдельный файл
+
+// путь к корню сайта в файл globals.php
   </script>
 </html>
