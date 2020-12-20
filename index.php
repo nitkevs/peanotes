@@ -64,6 +64,7 @@ function show_errors() {
     <header>
       <h1><a href="./"><?= $title ?></h1>
       <nav id="header-navigation">
+        <a href="register.php">Регистрация</a>
         <a href="note-edit.php">Добавить заметку</a>
         <a href="help.php">Справка</a>
       </nav>
