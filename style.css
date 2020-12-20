@@ -212,12 +212,12 @@ p#login {
   color: #555;
 }
 
-    label.required::after {
-      display: inline-block;
-      content: "*";
-      padding: 0 0 0 4px;
-      color: red;
-    }
+label.required::after {
+  display: inline-block;
+  content: "*";
+  padding: 0 0 0 4px;
+  color: red;
+}
   /*  --- End of registraion form ---  */
 
   /*  --- Edit note form ---  */
