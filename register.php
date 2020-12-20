@@ -148,9 +148,19 @@ $favicon = "/images/icons/favicon.ico";
       console.log(frame);
     }
 
+    let registerForm = document.querySelector('#register-form');
+
+    registerForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (confirmPass.value !== pass.value) {
+        alert("Пароли не совпадают!");
+        return false;
+      } else {
+        this.submit();
+      }
+    });
 
 // Функция проверки совпадения паролей
-// Согласие с правилами
 // Капча
 // вынести всё во внешний файл
 
