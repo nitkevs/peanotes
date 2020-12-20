@@ -27,6 +27,11 @@ $favicon = "/images/icons/favicon.ico";
       font-weight: bold;
     }
 
+    .termConditions {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
     </style>
   </head>
   <body>
@@ -36,29 +41,31 @@ $favicon = "/images/icons/favicon.ico";
     <form action="" method="post" id="register-form">
 
       <label for="name" class="required">Имя:</label>
-      <input type="text" id="login" name="name" maxlength="24" required="required" pattern="[A-Za-z0-9_]{1,24}">
+      <input type="text" id="login" name="name" maxlength="24" required pattern="[A-Za-z0-9_]{1,24}">
       <div class="description">Имя может состоять из <span class="highlight">латинских букв, цифр и знака _ и быть длинной не более 24 символов</span>.</div>
 
       <label for="password" class="required">Пароль:</label>
-      <input type="password" id="password" name="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}">
+      <input type="password" id="password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}">
       <div class="description">Пароль должен содержать по крайней мере одно число, одну заглавную и строчную буквы и быть длинной не менее 10 символов</div>
 
       <label for="confirm-password" class="required">Повторите пароль:</label>
-      <input type="password" id="confirm-password" required="required">
+      <input type="password" id="confirm-password" required>
       <div class="description">Пароли не совпадают!</div>
 
       <label for="email">Адрес e-mail:</label>
       <input type="email" id="email" name="email">
       <div class="description">Это поле необязательно, но с помощью e-mail можно, в случае чего, восстановить пароль.</div>
 
-      <div id=""></div>
+      <div class="termConditions">
+        <input type="checkbox" name="termConditions" id="termConditions" required> <label for="termConditions" class="required">Я согласен с правилами использования сервиса.</label>
+      </div>
       <button>Отправить</button>
     </form>
 
     </main>
   </body>
   <script>
-    let formFields = document.querySelectorAll ('input:not(#confirm-password)');
+    let formFields = document.querySelectorAll ('form > input:not(#confirm-password)');
 
     for (i = 0; i < formFields.length; i++) {
 
