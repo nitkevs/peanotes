@@ -1,4 +1,4 @@
-Peanotes 1.1.x
+Peanotes 1.3.x
 
 Peanotes (PNotes от PHP Notes) - мой учебный проект. Более того - мой первый проект на PHP.
 
