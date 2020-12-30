@@ -6,9 +6,24 @@
    *
   */
 
-  require_once './includes/DB_connection.php';
+
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
   session_start();
+
+  $user = new User();
+
+  if (!isset($_SESSION['user_id'])) {
+    $user->id = require_once  './includes/auth.php';
+  } else {
+    $user->id = $_SESSION['user_id'];
+  }
+
 
   $title = "Peanotes";
   $root_dir = "/php/peanotes";
