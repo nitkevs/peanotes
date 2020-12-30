@@ -62,12 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $user->salt = $user_info['salt'];
 
-
-//-   $_SESSION['hash1'] = $user_info['pass'];
-//   $_SESSION['hash2'] = get_hash($received_pass, $user->salt, $key);
-//   $_SESSION['user_info'] = $user_info;
-
-
    if ($user_info['pass'] == get_hash($received_pass, $user->salt, $key)) {
      $user->id = $_SESSION['user_id'] = $user_info['id'];
 
@@ -82,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $coockie_hash = get_hash($new_session_hash, $_SERVER['HTTP_USER_AGENT'], $key);
     $user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
 
-    setcookie('session', "{$coockie_hash}");
+    setcookie('session', $coockie_hash, $session_expires);
 
     $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user->id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
 
