@@ -12,6 +12,6 @@ $query = "CREATE TABLE IF NOT EXISTS `pn_users` (`id` int(8) PRIMARY KEY AUTO_IN
 $result = mysqli_query($db_connection, $query) or die(mysqli_error($db_connection)."<p>".$query);
 
 
-$query = "CREATE TABLE IF NOT EXISTS `pn_sessions` (`user_id` int(8), `hash` char(32), `user_agent` char(32), `expires` varchar(10))" or die(mysqli_error($db_connection)."<p>".$query);
+$query = "CREATE TABLE IF NOT EXISTS `pn_sessions` (`user_id` int(8), `hash` char(32) PRIMARY KEY, `user_agent` char(32), `expires` varchar(10))" or die(mysqli_error($db_connection)."<p>".$query);
 
 $result = mysqli_query($db_connection, $query);

@@ -6,7 +6,9 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-session_start();
+if (!session_id()) {
+  session_start();
+}
 
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
@@ -27,7 +29,6 @@ function get_hash($arg1, $arg2, $arg3) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
   $user = new User();
 
   //   Переводим логин в нижний регистр, потому что пользователь
@@ -98,6 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
    }
 
+} else {
+
+ header("Location: /login.php");
+ exit;
 }
 
 
