@@ -1,7 +1,5 @@
 <?php
 
-
-
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -65,18 +63,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $user->salt = $user_info['salt'];
 
 
-  $_SESSION['hash1'] = $user_info['pass'];
-  $_SESSION['hash2'] = get_hash($received_pass, $user->salt, $key);
-  $_SESSION['user_info'] = $user_info;
+//-   $_SESSION['hash1'] = $user_info['pass'];
+//   $_SESSION['hash2'] = get_hash($received_pass, $user->salt, $key);
+//   $_SESSION['user_info'] = $user_info;
 
 
    if ($user_info['pass'] == get_hash($received_pass, $user->salt, $key)) {
      $user->id = $_SESSION['user_id'] = $user_info['id'];
 
-    // Устанавливаем соль сессии2 (rand(0, пхп-макс-инт),rand(0, пхп-макс-инт), rand(0, пхп-макс-инт))
-    // Создать сессию2 с хешем (соль сессии2, id, юзер_агент) и временем истечения (30 дней);
-    // Создать куку с хешем (хеша сессии2, юзер_агента и ключ) на 30 дней;
-    // Переходим на главную
+    // Создать хэш сессии
+    // Создать сессию
+    // Создать куку на 30 дней
+    // Перейти на главную
 
     $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
     $new_session_hash = get_hash($random_hash, $user->id, $_SERVER['HTTP_USER_AGENT']);
