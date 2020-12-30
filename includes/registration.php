@@ -140,7 +140,7 @@
 
     if ($name && $login && $pass && $confirm_pass && ($email || !$_POST['email']) && $captcha ) {
 
-      $query = "INSERT INTO `pn_users` SET `name` = '{$name}', `login` = '{$login}', `hash` = '{$pass_hash}', `salt` = '{$salt}', `group` = 4";
+      $query = "INSERT INTO `pn_users` SET `name` = '{$name}', `login` = '{$login}', `pass` = '{$pass_hash}', `salt` = '{$salt}', `group` = 4";
 
       mysqli_query($db_connection, $query) or die (mysqli_error($db_connection)."<p>".$query);
 
