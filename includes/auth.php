@@ -13,8 +13,6 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 
-$user = new User();
-
 function get_hash($arg1, $arg2, $arg3) {
 
       $hash_1 = md5($arg1);
@@ -29,6 +27,8 @@ function get_hash($arg1, $arg2, $arg3) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  $user = new User();
 
   //   Переводим логин в нижний регистр, потому что пользователь
   //   может вводить вместо него никнейм, выбранный во время
