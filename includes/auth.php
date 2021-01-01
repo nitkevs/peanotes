@@ -25,6 +25,27 @@ function get_hash($arg1, $arg2, $arg3) {
       return substr(sha1($hash_5.$hash_4.$arg2), 8, 40);
     }
 
+    // Создать хэш сессии
+    // Создать сессию
+    // Создать куку на 30 дней
+    // Перейти на главную
+
+    function set_session($user_id) {
+      global $user_agent_hash;
+      global $db_connection;
+
+      $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
+      $coockie_hash = get_hash($random_hash, $user_id, $user_agent_hash);
+      $session_expires = time() + (60*60*24*30);
+      $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
+
+      setcookie('session', $coockie_hash, $session_expires, "/");
+
+      $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user_id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
+      $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+
+    }
+
 $user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -64,27 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    $user->salt = $user_info['salt'];
 
    if ($user_info['pass'] == get_hash($received_pass, $user->salt, HASH_KEY)) {
-     $user->id = $_SESSION['user_id'] = $user_info['id'];
 
-
-     /* ВЫНЕСТИ В ОТДЕЛЬНУЮ ФУНКЦИЮ */
-    // Создать хэш сессии
-    // Создать сессию
-    // Создать куку на 30 дней
-    // Перейти на главную
-    $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
-    $coockie_hash = get_hash($random_hash, $user->id, $user_agent_hash);
-    $session_expires = time() + (60*60*24*30);
-    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
-
-
-    setcookie('session', $coockie_hash, $session_expires, "/");
-
-    $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user->id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
-
-    $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
-
-    /* КОНЕЦ ОТДЕЛЬНОЙ ФУНКЦИИ */
+    set_session($user_info['id']);
+    $_SESSION['user_id'] = $user_info['id'];
 
     header("Location: /");
     exit;
@@ -115,28 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
     session_destroy();
 
-
-
-     /* ВЫНЕСТИ В ОТДЕЛЬНУЮ ФУНКЦИЮ */
-    // Создать хэш сессии
-    // Создать сессию
-    // Создать куку на 30 дней
-    // Перейти на главную
-    $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
-    $coockie_hash = get_hash($random_hash, $session['user_id'], $user_agent_hash);
-    $session_expires = time() + (60*60*24*30);
-    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
-
-
-    setcookie('session', $coockie_hash, $session_expires, "/");
- // {$user->id} не срабатывает.
-    $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$session['user_id']}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
-
-    $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
-
-    /* КОНЕЦ ОТДЕЛЬНОЙ ФУНКЦИИ */
-
-
+    set_session($session['user_id']);
 
     return $session['user_id'];
   } else {
