@@ -25,6 +25,7 @@ function get_hash($arg1, $arg2, $arg3) {
       return substr(sha1($hash_5.$hash_4.$arg2), 8, 40);
     }
 
+$user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $user = new User();
@@ -60,42 +61,98 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Следующие шаги определяют идентичность пароля.
 
-  $user->salt = $user_info['salt'];
+   $user->salt = $user_info['salt'];
 
    if ($user_info['pass'] == get_hash($received_pass, $user->salt, $key)) {
      $user->id = $_SESSION['user_id'] = $user_info['id'];
 
+
+     /* ВЫНЕСТИ В ОТДЕЛЬНУЮ ФУНКЦИЮ */
     // Создать хэш сессии
     // Создать сессию
     // Создать куку на 30 дней
     // Перейти на главную
-
     $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
-    $new_session_hash = get_hash($random_hash, $user->id, $_SERVER['HTTP_USER_AGENT']);
+    $coockie_hash = get_hash($random_hash, $user->id, $user_agent_hash);
     $session_expires = time() + (60*60*24*30);
-    $coockie_hash = get_hash($new_session_hash, $_SERVER['HTTP_USER_AGENT'], $key);
-    $user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
+    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, $key);
 
-    setcookie('session', $coockie_hash, $session_expires);
+
+    setcookie('session', $coockie_hash, $session_expires, "/");
 
     $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user->id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
 
     $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
 
+    /* КОНЕЦ ОТДЕЛЬНОЙ ФУНКЦИИ */
+
     header("Location: /");
     exit;
 
-   } else {
+  } else {
 
     header("Location: /login.php?login=0");
     exit;
-   }
+  }
 
+
+  //- Если запрошен методом get, то есть сессия php удалена
+} else if (isset($_COOKIE['session'])) {
+
+  // Если файл не запрошн методом post, то...
+  //- Проверить легимитность куки
+  $cookies_session_hash = get_hash($_COOKIE['session'], $user_agent_hash, $key);
+  $query = "SELECT * FROM `pn_sessions` WHERE `hash` = '{$cookies_session_hash}'";
+  $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+  $session = mysqli_fetch_assoc($result);
+
+  // Если кука не просрочена и браузер совпадает с записанным в БД,
+  if ((integer)$session['expires'] > time() and $session['user_agent'] === $user_agent_hash) {
+
+    // ЗАМЕНИТЬ КУКУ И СЕССИЮ
+    setcookie('session', '', time());
+    $query = "DELETE FROM `pn_sessions` WHERE `hash` = '{$cookies_session_hash}'";
+    $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+    session_destroy();
+
+
+
+     /* ВЫНЕСТИ В ОТДЕЛЬНУЮ ФУНКЦИЮ */
+    // Создать хэш сессии
+    // Создать сессию
+    // Создать куку на 30 дней
+    // Перейти на главную
+    $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
+    $coockie_hash = get_hash($random_hash, $session['user_id'], $user_agent_hash);
+    $session_expires = time() + (60*60*24*30);
+    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, $key);
+
+
+    setcookie('session', $coockie_hash, $session_expires, "/");
+ // {$user->id} не срабатывает.
+    $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$session['user_id']}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
+
+    $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+
+    /* КОНЕЦ ОТДЕЛЬНОЙ ФУНКЦИИ */
+
+
+
+    return $session['user_id'];
+  } else {
+    // или удалить куку и сессию
+    setcookie('session', '', time());
+    $query = "DELETE FROM `pn_sessions` WHERE `hash` = '{$cookies_session_hash}'";
+    $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+    session_destroy();
+    die ("Сессия просрочена или браузер не совпадает.".(integer)$session['expires']." ".time(). " ".$session['user_agent']." ".$user_agent_hash);
+    header("Location: /login.php");
+    exit;
+  }
 } else {
-
- header("Location: /login.php");
- exit;
+      header("Location: /login.php");
+      exit;
 }
 
 
-
+// Файл возвращает стр()"2", хотя сессия удалена
