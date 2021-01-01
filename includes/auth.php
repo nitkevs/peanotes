@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
    $user->salt = $user_info['salt'];
 
-   if ($user_info['pass'] == get_hash($received_pass, $user->salt, $key)) {
+   if ($user_info['pass'] == get_hash($received_pass, $user->salt, HASH_KEY)) {
      $user->id = $_SESSION['user_id'] = $user_info['id'];
 
 
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
     $coockie_hash = get_hash($random_hash, $user->id, $user_agent_hash);
     $session_expires = time() + (60*60*24*30);
-    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, $key);
+    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
 
 
     setcookie('session', $coockie_hash, $session_expires, "/");
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Если файл не запрошн методом post, то...
   //- Проверить легимитность куки
-  $cookies_session_hash = get_hash($_COOKIE['session'], $user_agent_hash, $key);
+  $cookies_session_hash = get_hash($_COOKIE['session'], $user_agent_hash, HASH_KEY);
   $query = "SELECT * FROM `pn_sessions` WHERE `hash` = '{$cookies_session_hash}'";
   $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
   $session = mysqli_fetch_assoc($result);
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
     $coockie_hash = get_hash($random_hash, $session['user_id'], $user_agent_hash);
     $session_expires = time() + (60*60*24*30);
-    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, $key);
+    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
 
 
     setcookie('session', $coockie_hash, $session_expires, "/");

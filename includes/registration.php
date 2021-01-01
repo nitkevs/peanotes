@@ -134,7 +134,7 @@
 
     $salt = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
 
-    $pass_hash = get_hash($pass, $salt, $key);
+    $pass_hash = get_hash($pass, $salt, HASH_KEY);
 
     // Если всё верно, записываем аккаунт в БД и переадресовываем браузер на страницу приветствия.
 
