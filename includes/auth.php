@@ -116,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = "DELETE FROM `pn_sessions` WHERE `hash` = '{$cookies_session_hash}'";
     $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
     session_destroy();
-    die ("Сессия просрочена или браузер не совпадает.".(integer)$session['expires']." ".time(). " ".$session['user_agent']." ".$user_agent_hash);
     header("Location: /login.php");
     exit;
   }
