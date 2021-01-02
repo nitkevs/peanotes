@@ -19,19 +19,19 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
     // Создать куку на 30 дней
     // Перейти на главную
 
-    function set_session($user_id) {
-      global $user_agent_hash;
-      global $db_connection;
+  function set_session($user_id) {
+    global $user_agent_hash;
+    global $db_connection;
 
-      $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
-      $coockie_hash = get_hash($random_hash, $user_id, $user_agent_hash);
-      $session_expires = time() + (60*60*24*30);
-      $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
+    $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
+    $coockie_hash = get_hash($random_hash, $user_id, $user_agent_hash);
+    $session_expires = time() + (60*60*24*30);
+    $new_session_hash = get_hash($coockie_hash, $user_agent_hash, HASH_KEY);
 
-      setcookie('session', $coockie_hash, $session_expires, "/");
+    setcookie('session', $coockie_hash, $session_expires, "/");
 
-      $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user_id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
-      $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+    $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user_id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
+    $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
 
     }
 
@@ -54,17 +54,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
   $user_info = mysqli_fetch_assoc($result);
 
+  if (!empty($user_info)) {
+    $ban_severity = (integer)$user_info['ban_severity'];
+    $ban_expires = (integer)$user_info['ban_expires'];
+    $user_id = $user_info['id'];
+  }
+
   // Если пользователь с таким логином не найден,
   // возвращаемся к форме входа с сообщением об ошибке.
-  if (empty($user_info)) {
+    if (empty($user_info)) {
       header("Location: /login.php?user-does-not-exist={$received_login}");
       exit;
   }
 
-  // Если установлен запрет авторизации, возвращаемся к форме входа
-  // с сообщением об ошибке.
-  if (!empty($user_info['ban_expires'])) {
-      $ban_timeout = $user_info['ban_expires'] - time();
+  // Если установлен запрет авторизации, он ещё не просочен
+  // возвращаемся к форме входа с сообщением об ошибке.
+  if (isset($ban_expires) and $ban_expires > time()) {
+      $ban_timeout = $ban_expires - time();
       header("Location: /login.php?ban-timeout={$ban_timeout}&&login={$received_login}");
       exit;
   }
@@ -73,17 +79,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
    $user->salt = $user_info['salt'];
 
-   if ($user_info['pass'] == get_hash($received_pass, $user->salt, HASH_KEY)) {
-
-    set_session($user_info['id']);
-    $_SESSION['user_id'] = $user_info['id'];
-
+  if ($user_info['pass'] == get_hash($received_pass, $user->salt, HASH_KEY)) {
+    if ($ban_severity > 0) {
+      $query = "UPDATE `pn_users` SET `ban_expires` = '0', `ban_severity` = 0 WHERE `id` = {$user_id}";
+      mysqli_query($db_connection, $query) or send_error_message(mysqli_error($db_connection).$query);
+    }
+    set_session($user_id);
+    $_SESSION['user_id'] = $user_id;
     header("Location: /");
     exit;
 
-  } else {
+  } else { // Если пароль не соответствует
 
-    header("Location: /login.php?login=0");
+    if ($ban_severity < 4) {
+      $ban_severity++;
+    }
+
+    $severity_rules = [0, 0, 30, 5*60, 30*60]; // Список таймаутов для разных степеней строгости бана (0-4)
+    $ban_timeout = $severity_rules[$ban_severity];
+    $ban_expires = time() + $ban_timeout;
+    $query = "UPDATE `pn_users` SET `ban_expires` = '{$ban_expires}', `ban_severity` = {$ban_severity} WHERE `id` = {$user_id}";
+    mysqli_query($db_connection, $query) or send_error_message(mysqli_error($db_connection).$query);
+
+    header("Location: /login.php?ban-timeout={$ban_timeout}&&login={$received_login}");
     exit;
   }
 
