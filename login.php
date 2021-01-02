@@ -131,7 +131,7 @@
 
   <script>
 
-  <?php if (!isset($error_message)): ?>
+  <?php if (empty($error_message)): ?>
     let errorMessage = document.getElementById('error_message');
     errorMessage.style.opacity = "0";
 
