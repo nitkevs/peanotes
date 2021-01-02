@@ -1,40 +1,36 @@
 <?php
 
-  /*
-   * includes/DB_connection.php предоставляет подключение
-   * к базе данных в переменной $db_connection.
-   *
-   * includes/classes/Note.php предоставляет класс Note,
-   * для работы с заметками.
-   *
-  */
+/*
+*
+* /note-edit.php
+*
+* Форма создания и редактирования заметок.
+*
+*/
 
-  require_once './includes/DB_connection.php';
-  require_once './includes/classes/Note.php';
+require_once './includes/DB_connection.php';
+require_once './includes/classes/Note.php';
 
-  $note = new Note();
+$note = new Note();
 
-  if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $note->is_edited = $_POST['edit-note'];
-    $note->id = $_POST['note-id'];
-    $note->title = $_POST['note-title'];
-    $note->content = $_POST['note-content'];
-  }
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  $note->is_edited = $_POST['edit-note'];
+  $note->id = $_POST['note-id'];
+  $note->title = $_POST['note-title'];
+  $note->content = $_POST['note-content'];
+}
 
-  $title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
-  $root_dir = "/php/peanotes";
-  $favicon = "/images/icons/favicon.ico";
-
+$title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
+$favicon = "/images/icons/favicon.ico";
 
 ?>
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="shortcut icon" href="<?= $root_dir.$favicon ?>">
+    <link rel="shortcut icon" href="<?= $favicon ?>">
   </head>
   <body>
     <main>

@@ -1,5 +1,13 @@
 <?php
 
+/*
+*
+* /term-conditions.php
+*
+* Список правил использования сервиса.
+*
+*/
+
 $terms =  <<<TERMS
 <h1 style="font-size: 22px;">Правила использования сервиса «Peanotes».</h1>
 

@@ -1,11 +1,13 @@
 <?php
 
-  /*
-   * /includes/DB_connection.php предоставляет подключение
-   * к базе данных в переменной $db_connection.
-   *
-  */
-
+/*
+*
+* /index.php
+*
+* Главная страница сайта,
+* содержит список заметок пользователя.
+*
+*/
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
@@ -14,32 +16,29 @@ ini_set('display_startup_errors', 1);
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
-  session_start();
+session_start();
 
-  $user = new User();
+$user = new User();
 
-  if (!isset($_SESSION['user_id'])) {
-    $user->id = require_once  './includes/auth.php';
-  } else {
-    $user->id = $_SESSION['user_id'];
-  }
+if (!isset($_SESSION['user_id'])) {
+  $user->id = require_once  './includes/auth.php';
+} else {
+  $user->id = $_SESSION['user_id'];
+}
 
+$title = "Peanotes";
+$favicon = "/images/icons/favicon.ico";
 
-  $title = "Peanotes";
-  $root_dir = "/php/peanotes";
-  $favicon = "/images/icons/favicon.ico";
-
-  // Читаем БД, извлекам все заметки и записываем в массив $notes
-  $query = "SELECT * FROM `pn_notes` ORDER BY `id` DESC";
-  $result = mysqli_query($db_connection, $query);
-  for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
+// Читаем БД, извлекам все заметки и записываем в массив $notes
+$query = "SELECT * FROM `pn_notes` ORDER BY `id` DESC";
+$result = mysqli_query($db_connection, $query);
+for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
 
 function show_errors() {
 
   echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}<br><a href=\"errors_log.php\">Просмотреть лог ошибок</a></div>";
 
-  /* Записать ошибки в лог файл */
-
+  // Записать ошибки в лог файл.
   $file_content = file_get_contents("db_errors.log");
 
   if ($file_content) {
@@ -49,20 +48,16 @@ function show_errors() {
   $error_message = date("Y-m-d H:i:s", time())."\n\n{$_SESSION['my_err_mess']}\n\n{$_SESSION['error_message']}\n\n{$_SESSION['query']}".$message_separator.$file_content;
 
   $file = fopen("db_errors.log", 'w');
-
   fwrite($file, $error_message);
-
   fclose($file);
 
-  /* Удалить значения переменных сессии, чтобы после перезагрузки страницы сообщение не выводилось */
-
+  // Удалить значения переменных сессии, чтобы после перезагрузки страницы сообщение не выводилось.
   unset($_SESSION['error_message']);
   unset($_SESSION['my_err_mess']);
   unset($_SESSION['query']);
-
 }
 
-  $new_errors = ($_SESSION['error_message'] || $_SESSION['my_err_mess'] || $_SESSION['query']);
+$new_errors = (isset($_SESSION['error_message'])) ? true : false;
 
 ?>
 
@@ -72,7 +67,7 @@ function show_errors() {
     <meta charset="utf-8">
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="shortcut icon" href="<?= $root_dir.$favicon ?>">
+    <link rel="shortcut icon" href="<?= $favicon ?>">
   </head>
   <body>
     <?php if ($new_errors) show_errors(); ?>
@@ -88,7 +83,7 @@ function show_errors() {
       <div id="notes">
         <div id="notes-list">
 <?php
-            if (!$notes) {
+            if (empty($notes)) {
               // Если заметок в БД нет, вывести надпись.
               echo "Здесь ещё ничего нет.<br><a href=\"note-edit.php\">Добавить заметку</a>";
             } else {
@@ -132,7 +127,7 @@ NOTES;
         <div id="note-content">
         <?php
 
-          if ($notes) {
+          if (!empty($notes)) {
             echo "Кликните любую заметку, чтобы увидеть её содержимое.";
           } else {
             echo "Добавьте заметки, чтобы просматривать их в этой области.";
