@@ -19,6 +19,10 @@
 
   include_once "{$_SERVER['DOCUMENT_ROOT']}/includes/registration.php";
 
+  if (isset($_GET['name'])) {
+    $name = $_GET['name'];
+  }
+
 ?>
 <!DOCTYPE html>
 <html>
