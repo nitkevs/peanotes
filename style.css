@@ -1,3 +1,10 @@
+/*
+* style.css
+*
+* Файл общих стилей сайта
+*
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 html, body, div, nav, footer,
@@ -14,10 +21,10 @@ body {
   /*  --- Header ---  */
 
 header {
-  padding: 5px 25px;
   width: 100%;
-  overflow: hidden;
+  padding: 5px 25px;
   background: linear-gradient(to bottom, #455a64, #607d8b);
+  overflow: hidden;
   color: #fff;
   font-size: 15px;
   line-height: 30px;
@@ -77,18 +84,18 @@ header h1 a:hover {
   /*  --- Main ---  */
 
 main {
+  width: 90%;
   margin: 20px auto;
   padding: 0;
-  width: 90%;
 }
 
 #db-errors {
   padding: 10px;
-  line-height: 18px;
-  font-size: 13px;
-  font-family: sans-serif;
-  background: #ffb8b8;
   border: 1px solid #bf9797;
+  background: #ffb8b8;
+  font-family: sans-serif;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 #notes {
@@ -119,18 +126,18 @@ div#note-content {
 
 #notes-list li {
   position: relative;
+  margin-bottom: 10px;
+  padding: 14px 18px;
   border: 1px solid #cfd8dc;
   border-radius: 8px;
-  margin-bottom: 10px;
-  background: #eceff1;
-  padding: 14px 18px;
   box-shadow: 1px 1px 3px #cfd8dc;
+  background: #eceff1;
   cursor: pointer;
 }
 
 #notes-list li.active {
-  background: #455a64;
   border: 1px solid #455a64;
+  background: #455a64;
   color: #f0f0f0;
 }
 
@@ -144,15 +151,15 @@ div#note-content {
 }
 
 p.note-title {
-  font-weight: bold;
-  margin: 0 0 8px 0;
   height: 16px;
+  margin: 0 0 8px 0;
   overflow: hidden;
+  font-weight: bold;
 }
 
 p.note-teaser {
-  margin: 0;
   height: 48px;
+  margin: 0;
   overflow: hidden;
 }
 
@@ -164,10 +171,10 @@ p.note-teaser {
 }
 
 .note-edit-buttons button {
-  background: #adadadcc;
+  padding: 3px 4px 1px 4px;
   border-radius: 3px;
   border: 1px solid #cccccccc;
-  padding: 3px 4px 1px 4px;
+  background: #adadadcc;
 }
 
 .note-edit-buttons button:hover {
@@ -175,9 +182,9 @@ p.note-teaser {
 }
 
 #note-dates {
-  margin: 0 20px 8px 20px;
   display: grid;
   grid-template-columns: 50% 50%;
+  margin: 0 20px 8px 20px;
   font-size: 13px;
   color: #777;
 }
@@ -214,61 +221,128 @@ p#login {
 
 label.required::after {
   display: inline-block;
-  content: "*";
   padding: 0 0 0 4px;
+  content: "*";
   color: red;
 }
 
-  .description {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    padding-left: 150px;
-    color: #999;
-    font-family: sans-serif;
-    font-size: 12px;
-  }
+.description {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding-left: 150px;
+  color: #999;
+  font-family: sans-serif;
+  font-size: 12px;
+}
 
-  #confirm-password + .description {
-    font-weight: bold;
-  }
+#confirm-password + .description {
+  font-weight: bold;
+}
 
-  .term-conditions, #captcha {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
+.term-conditions, #captcha {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 
-  iframe#term-conditions {
-    display: none;
-    width: 75%;
-    margin: 0 auto;
-    height: 300px;
-    border: 1px solid #bbb;
-    border-radius: 2px;
-  }
+iframe#term-conditions {
+  display: none;
+  width: 75%;
+  margin: 0 auto;
+  height: 300px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+}
 
-  .term-conditions a:hover {
-    text-decoration: underline;
-  }
+.term-conditions a:hover {
+  text-decoration: underline;
+}
 
-  #captcha {
-    margin: 0;
-    padding: 12px 18px;
-    background: #f8f7d3;
-    border: 1px solid #e6e6bc;
-  }
+#captcha {
+  margin: 0;
+  padding: 12px 18px;
+  border: 1px solid #e6e6bc;
+  background: #f8f7d3;
+}
 
-  #reg-errors {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    margin: -12px 0 18px 0;
-    padding: 4px 16px;
-    line-height: 18px;
-    font-size: 13px;
-    font-family: sans-serif;
-    background: #ffb8b8;
-    border: 1px solid #bf9797;
-  }
+#reg-errors {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin: -12px 0 18px 0;
+  padding: 4px 16px;
+  border: 1px solid #bf9797;
+  background: #ffb8b8;
+  font-family: sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
   /*  --- End of registraion form ---  */
+
+  /*  --- Login form ---  */
+
+#login-form {
+  width: 200px;
+  margin: 0 auto;
+}
+
+#login-form label,
+#login-form input,
+#login-form button {
+  display: block;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  width: 200px;
+  padding: 2px;
+}
+
+.centered {
+  text-align: center;
+}
+
+h1.centered {
+  margin: 12px 0;
+}
+
+#login-form label {
+  margin: 2px;
+  padding: 12px 0px;
+}
+
+#login-form button {
+  margin: 25px auto;
+}
+
+main.login-form-container {
+  display: grid;
+  height: 100vh;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+div.login-form-container {
+  width: 372px;
+  margin: 0 auto calc(50vh - 160px) auto;
+  padding: 10px 85px;
+  border: 1px solid #abbdc4;
+  border-radius: 5px;
+  background: #c3cfd5;
+}
+
+div#error_message {
+  align-self: end;
+  width: 65vw;
+  height: 70px;
+  padding: 0px 25px;
+  border: 1px solid #999;
+  background: #fdd;
+  text-align: center;
+  line-height: 65px;
+}
+
+  /*  --- End of login form ---  */
 
   /*  --- Edit note form ---  */
 
