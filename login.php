@@ -18,9 +18,12 @@ $login = "";
 
 if (isset($_GET['user-does-not-exist'])) {
   $error_message = "Пользователь {$_GET['name']} не найден. Вы можете <a href=\"/registration-form.php?name={$_GET['name']}\">зарегистрироваться</a> с таким именем.";
-} else if (isset($_GET['ban-expires'])) {
+} else if (isset($_GET['ban-expires']) and $_GET['ban-expires'] > time()) {
   $error_message = "Неверный пароль. Попробуйте ещё раз через <span id=\"timer\"></span>.";
   $ban_timeout = $_GET['ban-expires'] - time();
+} else if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
+  $error_message = "Неверный пароль. Попробуйте ещё раз.";
+//   $ban_timeout = 0;
 }
 
 ?>

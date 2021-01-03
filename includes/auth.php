@@ -76,14 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Если пользователь с таким логином не найден,
   // возвращаемся к форме входа с сообщением об ошибке.
   if (empty($user_data)) {
-    header("Location: /login.php?user-does-not-exist=1&&name={$received_login}");
+    header("Location: /login.php?user-does-not-exist=1&name={$received_login}");
     exit;
   }
 
   // Если установлен и ещё не просрочен запрет авторизации,
   // возвращаемся к форме входа с сообщением об ошибке.
   if ($ban_expires > time()) {
-    header("Location: /login.php?ban-expires={$ban_expires}&&login={$received_login}");
+    header("Location: /login.php?ban-expires={$ban_expires}&ban-severity={$ban_severity}&login={$received_login}");
     exit;
   }
 
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = "UPDATE `pn_users` SET `ban_expires` = '{$ban_expires}', `ban_severity` = {$ban_severity} WHERE `id` = {$user_id}";
     mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
 
-    header("Location: /login.php?ban-expires={$ban_expires}&&login={$received_login}");
+    header("Location: /login.php?ban-expires={$ban_expires}&ban-severity={$ban_severity}&login={$received_login}");
     exit;
   }
 
