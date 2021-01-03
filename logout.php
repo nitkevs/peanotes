@@ -20,17 +20,9 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 
 $user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
+$session_hash = get_hash($_COOKIE['session'], $user_agent_hash, HASH_KEY);
 
-if (isset($_COOKIE['session'])) {
-  $cookies_session_hash = get_hash($_COOKIE['session'], $user_agent_hash, HASH_KEY);
-  $query = "DELETE FROM `pn_sessions` WHERE `hash` = '{$cookies_session_hash}'";
-  $result = mysqli_query($db_connection, $query);
-
-  setcookie('session', '', time());
-}
-
-session_destroy();
-unset($_SESSION['user_id']);
+remove_session($session_hash);
 
 header ("Location: /login.php");
 exit;

@@ -25,6 +25,8 @@ function set_session($user_id) {
   global $user_agent_hash;
   global $db_connection;
 
+  if (!session_id())  session_start();
+
   $random_hash = get_hash(rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX), rand(0, PHP_INT_MAX));
   $coockie_hash = get_hash($random_hash, $user_id, $user_agent_hash);
   $session_expires = time() + (60*60*24*30);
