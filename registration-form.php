@@ -1,27 +1,21 @@
 <?php
 
-   /*
-    * Форма регистрации пользователя.
-    *
-    * Переменные:
-    *
-    * $error_message: Сообщение об ошибке регистрации (если она есть).
-    * $name: имя пользователя, если оно было введено до возникновения ошибки
-    *   (например, если неправильно введена капча).
-    * $email e-mail пользователя, если оно было введено до возникновения ошибки
-    * $captcha->html_content: html-код блока капчи.
-    *
-    */
+// /*
+// *
+// * /registration-form.php
+// *
+// * Форма регистрации пользователя.
+// *
+// */
 
-  ini_set('error_reporting', E_ALL);
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
-  include_once "{$_SERVER['DOCUMENT_ROOT']}/includes/registration.php";
+include_once "{$_SERVER['DOCUMENT_ROOT']}/includes/registration.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/captcha.php";
 
-  if (isset($_GET['name'])) {
-    $name = $_GET['name'];
-  }
+$name = $_GET['name'] ?? $name;
 
 ?>
 <!DOCTYPE html>
@@ -57,9 +51,7 @@
       <label for="email">Адрес e-mail:</label>
       <input type="email" id="email" name="email" value="<?= $email ?>">
       <div class="description">Это поле необязательно, но с помощью e-mail можно, в случае чего, восстановить пароль.</div>
-
         <?= $captcha->html_content; ?>
-
       <div class="term-conditions">
         <input type="checkbox" name="conditions-consent" id="conditions-consent" required> <label for="conditions-consent" class="required">Я согласен с <a href="javascript: showTerms();">правилами использования сервиса</a>.</label>
       </div>

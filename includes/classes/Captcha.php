@@ -1,26 +1,29 @@
 <?php
 
-  /*
-   * Класс Captcha предоставляет методы для работы с капчей
-   *
-   */
-
+/*
+*
+* /includes/classes/Captcha.php
+*
+* Класс Captcha предоставляет возможность использовать капчу
+* на страницах сайта.
+*
+*/
 
 class Captcha {
 
   public $arguments = array(
-     1 => "Один",
-     2 => "Два",
-     3 => "Три",
-     4 => "Четыре",
-     5 => "Пять",
-     6 => "Шесть",
-     );
+    1 => "Один",
+    2 => "Два",
+    3 => "Три",
+    4 => "Четыре",
+    5 => "Пять",
+    6 => "Шесть",
+    );
 
   public $answer;
   public $question;
 
-  public function captcha_html() {
+  public function get_content() {
 
     $first_argument = $this->arguments[random_int(1, 6)];
     $second_argument = $this->arguments[random_int(1, 6)];
@@ -30,7 +33,5 @@ class Captcha {
     $this->answer = array_search($first_argument, $this->arguments) + array_search($second_argument, $this->arguments);
 
     return $html_content;
-
   }
-
 }
