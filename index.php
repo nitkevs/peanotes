@@ -74,6 +74,7 @@ $new_errors = (isset($_SESSION['error_message'])) ? true : false;
     <header>
       <h1><a href="./"><?= $title ?></h1>
       <nav id="header-navigation">
+        <a href="logout.php">Выход</a>
         <a href="registration-form.php">Регистрация</a>
         <a href="note-edit.php">Добавить заметку</a>
         <a href="help.php">Справка</a>
