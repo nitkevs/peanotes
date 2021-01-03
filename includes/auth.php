@@ -23,16 +23,6 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 
-function remove_session($session_hash) {
-  global $db_connection;
-
-  setcookie('session', '', time());
-
-  $query = "DELETE FROM `pn_sessions` WHERE `hash` = '{$session_hash}'";
-  $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
-  session_destroy();
-}
-
 $user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

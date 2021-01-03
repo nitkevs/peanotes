@@ -36,3 +36,14 @@ function set_session($user_id) {
   $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query); // Создать сессию
   $_SESSION['user_id'] = $user_id;
 }
+
+function remove_session($session_hash) {
+  global $db_connection;
+
+  setcookie('session', '', time());
+
+  $query = "DELETE FROM `pn_sessions` WHERE `hash` = '{$session_hash}'";
+  $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query);
+  session_destroy();
+  unset($_SESSION['user_id']);
+}
