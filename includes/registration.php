@@ -16,6 +16,7 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_vars.php";
 
 // Функция проверяет соответствие введённых пользователем данных,
 // регулярному выражению. Возвращает сами эти данные, или null,
@@ -33,8 +34,6 @@ function check_login($name, $db_connection) {
 
   return empty($result);
 }
-
-$user_agent_hash = md5($_SERVER['HTTP_USER_AGENT']);
 
 $name = "";
 $login = "";
