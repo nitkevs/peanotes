@@ -30,8 +30,6 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
 //   $ban_timeout = 0;
 }
 
-
-
 ?>
 <!DOCTYPE html>
 <html>
