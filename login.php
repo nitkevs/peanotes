@@ -11,6 +11,17 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
+if (!session_id()) session_start();
+
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_vars.php";
+
+$session_hash = get_hash($_COOKIE['session'], $user_agent_hash, HASH_KEY);
+
+remove_session($session_hash);
+
 $title = "Вход";
 $error_message = "";
 $login = $_GET['login'] ?? null;
