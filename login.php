@@ -18,9 +18,10 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_vars.php";
 
-$session_hash = get_hash($_COOKIE['session'], $user_agent_hash, HASH_KEY);
-
-remove_session($session_hash);
+if (isset($_COOKIE['session'])) {
+  $session_hash = get_hash($_COOKIE['session'], $user_agent_hash, HASH_KEY);
+  remove_session($session_hash);
+}
 
 $title = "Вход";
 $error_message = "";
