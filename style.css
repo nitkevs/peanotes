@@ -334,12 +334,13 @@ div.login-form-container {
 div#error_message {
   align-self: end;
   width: 65vw;
-  height: 70px;
-  padding: 0px 25px;
-  border: 1px solid #999;
-  background: #fdd;
+  padding: 16px;
+  border: 1px solid #e3c9c9;
+  background: #f7d4d4;
   text-align: center;
-  line-height: 65px;
+  font-family: sans-serif;
+  font-size: 13px;
+  line-height: 18px;
 }
 
   /*  --- End of login form ---  */
