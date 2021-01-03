@@ -16,7 +16,6 @@ if (!session_id()) {
 }
 
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
-// require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 
