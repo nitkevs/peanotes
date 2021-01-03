@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Если всё верно, записываем аккаунт в БД и переадресовываем браузер на страницу приветствия.
   if (!empty($name) and !empty($login) and !empty($pass) and $confirm_pass and (!empty($email) or empty($_POST['email'])) and $captcha_answer_is_correct ) {
 
-    $query = "INSERT INTO `pn_users` SET `name` = '{$name}', `login` = '{$login}', `pass` = '{$pass_hash}', `salt` = '{$salt}', `group` = 4, `ban_expires` = '0', `ban_severity` = 0";
+    $query = "INSERT INTO `pn_users` SET `name` = '{$name}', `login` = '{$login}', `pass` = '{$pass_hash}', `salt` = '{$salt}', `group` = 4, `ban_expires` = '0', `ban_severity` = 0, `email` = '{$email}'";
     mysqli_query($db_connection, $query) or die (mysqli_error($db_connection)."<p>".$query);
 
   // Авторизируем нового пользователя.

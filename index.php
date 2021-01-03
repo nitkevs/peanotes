@@ -14,6 +14,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
 session_start();
