@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Если пользователь с таким логином не найден,
   // возвращаемся к форме входа с сообщением об ошибке.
   if (empty($user_data)) {
-    header("Location: /login.php?user-does-not-exist=1&name={$received_login}");
+    header("Location: /login.php?user-does-not-exist=1&non-existent-name={$received_login}");
     exit;
   }
 

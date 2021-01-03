@@ -12,19 +12,25 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 $title = "Вход";
-
 $error_message = "";
-$login = "";
+$login = $_GET['login'] ?? null;
 
 if (isset($_GET['user-does-not-exist'])) {
-  $error_message = "Пользователь {$_GET['name']} не найден. Вы можете <a href=\"/registration-form.php?name={$_GET['name']}\">зарегистрироваться</a> с таким именем.";
-} else if (isset($_GET['ban-expires']) and $_GET['ban-expires'] > time()) {
+  $error_message = "Пользователь {$_GET['non-existent-name']} не найден. Вы можете <a href=\"/registration-form.php?name={$_GET['non-existent-name']}\">зарегистрироваться</a> с таким именем.";
+  $login = "";
+}
+
+if (isset($_GET['ban-expires']) and $_GET['ban-expires'] > time()) {
   $error_message = "Неверный пароль. Попробуйте ещё раз через <span id=\"timer\"></span>.";
   $ban_timeout = $_GET['ban-expires'] - time();
-} else if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
+}
+
+if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
   $error_message = "Неверный пароль. Попробуйте ещё раз.";
 //   $ban_timeout = 0;
 }
+
+
 
 ?>
 <!DOCTYPE html>
