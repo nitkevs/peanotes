@@ -1,12 +1,12 @@
 <?php
 
-// /*
-// *
-// * /registration-form.php
-// *
-// * Форма регистрации пользователя.
-// *
-// */
+/*
+*
+* /registration-form.php
+*
+* Форма регистрации пользователя.
+*
+*/
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
