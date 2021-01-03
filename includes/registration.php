@@ -10,7 +10,7 @@
 *
 */
 
-session_start();
+if (!session_id()) session_start();
 
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
