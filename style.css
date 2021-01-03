@@ -91,8 +91,8 @@ main {
 
 #db-errors {
   padding: 10px;
-  border: 1px solid #bf9797;
-  background: #ffb8b8;
+  border: 1px solid #e3c9c9;
+  background: #f7d4d4;
   font-family: sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -269,8 +269,8 @@ iframe#term-conditions {
   grid-column-end: 3;
   margin: -12px 0 18px 0;
   padding: 4px 16px;
-  border: 1px solid #bf9797;
-  background: #ffb8b8;
+  border: 1px solid #e3c9c9;
+  background: #f7d4d4;
   font-family: sans-serif;
   font-size: 13px;
   line-height: 18px;
