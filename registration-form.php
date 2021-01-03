@@ -44,7 +44,7 @@ $name = $_GET['name'] ?? $name;
     <form action="" method="post" id="register-form">
     <?php
       if ($error_message) {
-        echo "<div id=\"reg-errors\">{$error_message}</div>";
+        echo "<div id=\"reg-errors\" class=\"error-message\">{$error_message}</div>";
       }
     ?>
       <label for="name" class="required">Имя:</label>

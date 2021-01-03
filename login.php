@@ -53,7 +53,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
   </head>
   <body>
     <main  class="login-form-container">
-    <div id="error_message">
+    <div id="login-error-message" class="error-message">
       <?= $error_message ?>
     </div>
     <div class="login-form-container">
@@ -72,7 +72,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
   </body>
   <script>
   <?php if (empty($error_message)): ?>
-    let errorMessage = document.getElementById('error_message');
+    let errorMessage = document.getElementById('login-error-message');
     errorMessage.style.opacity = "0"; // Делаем пустой блок вывода ошибок невидимым.
   <?php endif; ?>
   <?php if (isset($ban_timeout)): ?>// Если из адресгой строки получено значение таймаута бана
@@ -102,7 +102,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
         if (timeout == 0) {
            clearInterval(timeCounter);
            submit.removeAttribute("disabled");
-           let errorMessage = document.getElementById('error_message');
+           let errorMessage = document.getElementById('login-error-message');
            errorMessage.style.opacity = "0";
         }
         timeout--;

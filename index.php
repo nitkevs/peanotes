@@ -22,7 +22,7 @@ session_start();
 $user = new User();
 
 if (!isset($_SESSION['user_id'])) {
-  $user->id = require_once  './includes/auth.php';
+  $user->id = require_once './includes/auth.php';
 } else {
   $user->id = $_SESSION['user_id'];
 }
@@ -37,7 +37,7 @@ for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
 
 function show_errors() {
 
-  echo "<div id=\"db-errors\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}<br><a href=\"errors_log.php\">Просмотреть лог ошибок</a></div>";
+  echo "<div id=\"db-errors\" class=\"error-message\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}<br><a href=\"errors_log.php\">Просмотреть лог ошибок</a></div>";
 
   // Записать ошибки в лог файл.
   $file_content = file_get_contents("db_errors.log");
