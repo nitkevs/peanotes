@@ -31,6 +31,20 @@ main a {
   text-decoration: none;
 }
 
+h1 {
+  font-size: 26px;
+  line-height: 27px;
+}
+
+main h1 {
+  font-family: serif;
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0 0 18px 0;
+}
+
   /*  --- End of common styles ---  */
 
   /*  --- Header ---  */
@@ -43,30 +57,6 @@ header {
   color: #fff;
   font-size: 15px;
   line-height: 30px;
-}
-
-h1 {
-  font-size: 26px;
-  line-height: 27px;
-}
-
-header h1 {
-  float: left;
-  padding: 0 31px;
-  background: url('images/icons/peanut.png') no-repeat;
-  background-position: 0 -1px;
-  font-family: 'Pacifico', cursive;
-  font-size: 30px;
-  line-height: 42px;
-}
-
-main h1 {
-  font-family: serif;
-  font-weight: bold;
-}
-
-h2 {
-  margin: 0 0 18px 0;
 }
 
 #header-navigation {
@@ -86,11 +76,22 @@ header a:hover {
   text-decoration: underline;
 }
 
-header h1 a {
+header #logo {
+  float: left;
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+  line-height: 42px;
+}
+
+header #logo a {
+  margin: 0;
+  padding: 0 0 0 41px;
+  background: url(images/icons/peanut.png) no-repeat;
+  background-position: 0px -1px;
   font-weight: normal;
 }
 
-header h1 a:hover {
+header #logo a:hover {
   text-decoration: none;
 }
 
