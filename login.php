@@ -39,7 +39,6 @@ if (isset($_GET['ban-expires']) and $_GET['ban-expires'] > time()) {
 
 if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
   $error_message = "Неверный пароль. Попробуйте ещё раз.";
-//   $ban_timeout = 0;
 }
 
 ?>
@@ -58,7 +57,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
     </div>
     <div class="login-form-container">
       <h1 class="centered"><?= $title ?></h1>
-      <form action="includes/auth.php" method="post" id="login-form">
+      <form action="primary_auth.php" method="post" id="login-form">
         <label for="login">Логин:</label>
         <input type="text" id="login" name="login" maxlength="24" required value="<?= $login ?>">
 

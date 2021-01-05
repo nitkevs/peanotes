@@ -19,14 +19,11 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
 session_start();
 
-$user = new User();
-
 if (!isset($_SESSION['user_id'])) {
-  $user->id = require_once './includes/auth.php';
-} else {
-  $user->id = $_SESSION['user_id'];
+  require_once './includes/set_session.php';
 }
 
+$user = new User();
 $title = "Peanotes";
 $favicon = "/images/icons/favicon.ico";
 

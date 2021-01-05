@@ -36,7 +36,6 @@ function set_session($user_id) {
 
   $query = "INSERT INTO `pn_sessions` SET `user_id` = '{$user_id}', `hash` = '{$new_session_hash}', `user_agent` = '{$user_agent_hash}', `expires` = '{$session_expires}'";
   $result = mysqli_query($db_connection, $query) or die (mysqli_error($db_connection).$query); // Создать сессию
-  $_SESSION['user_id'] = $user_id;
 }
 
 function remove_session($session_hash) {
