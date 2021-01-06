@@ -53,7 +53,7 @@ $title = "Вы зарегистрированы!";
       <p>Поздравляем с успешной регистрацией.</p>
       <p>Ваш логин для входа: <span class="user-data"><?= $user->login ?></span><br>
          Ваш ник: <span class="user-data"><?= $user->name ?></span><br>
-         Ваш e-mail: <span class="user-data"><?= $user->email ?></span>
+         Ваш e-mail: <span class="user-data"><?= $user->email ?: "Не указан"; ?></span>
       </p>
       <p><a href="/">Прейти на главную страницу сайта.</p>
     </main>
