@@ -26,6 +26,14 @@ if (isset($_COOKIE['session'])) {
   remove_session($session_hash);
 }
 
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
+
+if (!session_id()) session_start();
+
+@$user = new User();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
+$favicon = "/images/icons/favicon.ico";
+
 $name = $_GET['name'] ?? $name;
 
 ?>
@@ -38,6 +46,7 @@ $name = $_GET['name'] ?? $name;
     <link rel="shortcut icon" href="/images/icons/favicon.ico">
   </head>
   <body>
+<?= $page_header ?>
     <main>
     <h1>Регистрация</h1>
     <p>Поля, отмеченные звёздочками обязательны для заполнения.</p>

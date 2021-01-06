@@ -17,15 +17,16 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
-session_start();
+if (!session_id()) session_start();
 
 if (!isset($_SESSION['user_id'])) {
   require_once './includes/set_session.php';
 }
 
 $user = new User();
-$title = "Peanotes";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 $favicon = "/images/icons/favicon.ico";
+$title = "Peanotes";
 
 // Читаем БД, извлекам все заметки и записываем в массив $notes
 $query = "SELECT * FROM `pn_notes` ORDER BY `id` DESC";
@@ -68,16 +69,8 @@ $new_errors = (isset($_SESSION['error_message'])) ? true : false;
     <link rel="shortcut icon" href="<?= $favicon ?>">
   </head>
   <body>
-    <?php if ($new_errors) show_errors(); ?>
-    <header>
-      <h1><a href="./"><?= $title ?></h1>
-      <nav id="header-navigation">
-        <a href="logout.php">Выход</a>
-        <a href="registration-form.php">Регистрация</a>
-        <a href="note-edit.php">Добавить заметку</a>
-        <a href="help.php">Справка</a>
-      </nav>
-    </header>
+<?php if ($new_errors) show_errors(); ?>
+<?= $page_header ?>
     <main>
       <div id="notes">
         <div id="notes-list">

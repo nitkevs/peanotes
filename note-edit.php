@@ -8,10 +8,25 @@
 *
 */
 
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 require_once './includes/DB_connection.php';
 require_once './includes/classes/Note.php';
-
 $note = new Note();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
+
+if (!session_id()) session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  require_once './includes/set_session.php';
+}
+
+$user = new User();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
+$favicon = "/images/icons/favicon.ico";
+$title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $note->is_edited = $_POST['edit-note'];
@@ -19,10 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $note->title = $_POST['note-title'];
   $note->content = $_POST['note-content'];
 }
-
-$title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
-$favicon = "/images/icons/favicon.ico";
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,6 +44,7 @@ $favicon = "/images/icons/favicon.ico";
     <link rel="shortcut icon" href="<?= $favicon ?>">
   </head>
   <body>
+<?= $page_header ?>
     <main>
     <h1><?= $title ?>:</h1>
     <form action="./write-note.php" method="post" id="note-edit-form" onsubmit="return formSubmit(); ">

@@ -13,9 +13,18 @@ ini_set('display_startup_errors', 1);
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/includes/DB_connection.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/includes/DB_tables.php';
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
-$title = "Вы зарегистрированы!";
+if (!session_id()) session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  require_once './includes/set_session.php';
+}
+
+$user = new User();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 $favicon = "/images/icons/favicon.ico";
+$title = "Вы зарегистрированы!";
 
 ?>
 <!DOCTYPE html>
@@ -33,6 +42,7 @@ $favicon = "/images/icons/favicon.ico";
     </style>
   </head>
   <body>
+<?= $page_header ?>
     <main class="gretting">
     <h1><?= $title ?></h1>
       <p>Поздравляем с успешной регистрацией.</p>

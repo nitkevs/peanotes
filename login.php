@@ -23,6 +23,13 @@ if (isset($_COOKIE['session'])) {
   remove_session($session_hash);
 }
 
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
+
+if (!session_id()) session_start();
+
+@$user = new User();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
+
 $title = "Вход";
 $error_message = "";
 $login = $_GET['login'] ?? null;
@@ -51,6 +58,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
     <link rel="shortcut icon" href="/images/icons/favicon.ico">
   </head>
   <body>
+  <?= $page_header ?>
     <main  class="login-form-container">
     <div id="login-error-message" class="error-message">
       <?= $error_message ?>
