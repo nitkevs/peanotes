@@ -39,6 +39,11 @@ $title = "Вы зарегистрированы!";
         margin: 50px auto;
         text-align: center;
       }
+
+      main.gretting p span {
+        margin-left: 1em;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -46,6 +51,10 @@ $title = "Вы зарегистрированы!";
     <main class="gretting">
     <h1><?= $title ?></h1>
       <p>Поздравляем с успешной регистрацией.</p>
+      <p>Ваш логин для входа: <span class="user-data"><?= $user->login ?></span><br>
+         Ваш ник: <span class="user-data"><?= $user->name ?></span><br>
+         Ваш e-mail: <span class="user-data"><?= $user->email ?></span>
+      </p>
       <p><a href="/">Прейти на главную страницу сайта.</p>
     </main>
   </body>
