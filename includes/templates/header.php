@@ -12,23 +12,23 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-$page_header = <<<CODE
+$page_header = <<<HTML
     <header>
       <div id="logo"><a href="./">Peanotes</div>
       <nav id="header-navigation">
-CODE;
+HTML;
 
 if (empty($user->id)) {
-$page_header .= <<<CODE
+$page_header .= <<<HTML
         <a href="logout.php">Войти</a>
         <a href="registration-form.php">Регистрация</a>
-CODE;
+HTML;
 }
 
 // if ($user->id === 1){}
 
 if ($user->id >= 1) {
-$page_header .= <<<CODE
+$page_header .= <<<HTML
         <style>
           #header-user-menu {
             display: inline-block;
@@ -59,10 +59,10 @@ $page_header .= <<<CODE
           <li><a href="logout.php">Выйти</a></li>
           </ul>
         </div>
-CODE;
+HTML;
 }
 
-$page_header .= <<<CODE
+$page_header .= <<<HTML
         <a href="help.php">Справка</a>
       </nav>
     </header>
@@ -85,4 +85,4 @@ $page_header .= <<<CODE
 
 
     </script>
-CODE;
+HTML;
