@@ -55,7 +55,7 @@ $title = "Вы зарегистрированы!";
          Ваш ник: <span class="user-data"><?= $user->name ?></span><br>
          Ваш e-mail: <span class="user-data"><?= $user->email ?: "Не указан"; ?></span>
       </p>
-      <p><a href="/">Прейти на главную страницу сайта.</p>
+      <p><a href="/">Прейти к созданию заметок.</a></p>
     </main>
   </body>
 </html>
