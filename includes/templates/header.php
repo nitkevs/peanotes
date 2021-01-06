@@ -54,8 +54,8 @@ $page_header .= <<<HTML
         <a href="note-edit.php">Новая заметка</a>
         <div id="header-user-menu"><a href="javascript: openMenu(this);">{$user->name} ({$user->id})</a>
           <ul class="user-menu">
-          <li><a href="profile.php">Профиль</a></li>
-          <li><a href="settings.php">Настройки</a></li>
+          <li><a href="view_profile.php">Профиль</a></li>
+          <li><a href="user_settings.php">Настройки</a></li>
           <li><a href="logout.php">Выйти</a></li>
           </ul>
         </div>
