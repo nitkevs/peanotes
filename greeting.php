@@ -34,17 +34,6 @@ $title = "Вы зарегистрированы!";
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="<?= $favicon ?>">
-    <style>
-      main.gretting {
-        margin: 50px auto;
-        text-align: center;
-      }
-
-      main.gretting p span {
-        margin-left: 1em;
-        font-weight: bold;
-      }
-    </style>
   </head>
   <body>
 <?= $page_header ?>

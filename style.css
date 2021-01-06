@@ -281,6 +281,20 @@ iframe#term-conditions {
 
   /*  --- End of registraion form ---  */
 
+  /*  --- Welcome page ---  */
+
+  main.gretting {
+    margin: 50px auto;
+    text-align: center;
+  }
+
+  main.gretting p span {
+    margin-left: 1em;
+    font-weight: bold;
+  }
+
+  /*  --- End welcome page ---  */
+
   /*  --- Login form ---  */
 
 #login-form {
