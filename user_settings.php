@@ -34,17 +34,12 @@ $title = "Настройки";
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="<?= $favicon ?>">
-    <style>
-
-    </style>
   </head>
   <body>
 <?= $page_header ?>
-    <main class="gretting">
+    <main>
     <h1><?= $title ?></h1>
-      <p></p>
-      <p></p>
-      <p></p>
     </main>
   </body>
+  <script src="js/header.js"></script>
 </html>

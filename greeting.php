@@ -47,4 +47,5 @@ $title = "Вы зарегистрированы!";
       <p><a href="/">Прейти к созданию заметок.</a></p>
     </main>
   </body>
+  <script src="js/header.js"></script>
 </html>

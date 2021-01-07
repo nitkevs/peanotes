@@ -20,9 +20,14 @@ body {
   background: #f6f8f8;
 }
 
-main {
+main.index {
   width: 90%;
   margin: 20px auto;
+  padding: 0;
+}
+
+main {
+  margin: 40px 10%;
   padding: 0;
 }
 
@@ -32,17 +37,29 @@ main a {
 }
 
 h1 {
+  margin-bottom: 32px;
+  font-family: serif;
+  font-weight: bold;
   font-size: 26px;
   line-height: 27px;
 }
 
-main h1 {
-  font-family: serif;
-  font-weight: bold;
-}
-
 h2 {
   margin: 0 0 18px 0;
+}
+
+.grid-container {
+  display: grid;
+  margin-top: 18px;
+  row-gap: 10px;
+}
+
+.two-columns {
+  grid-template-columns: 150px 300px;
+}
+
+.user-property {
+  font-weight: bold;
 }
 
   /*  --- End of common styles ---  */
@@ -101,6 +118,25 @@ header #logo a:hover {
   font-family: sans-serif;
   font-size: 13px;
   line-height: 18px;
+}
+
+#header-user-menu {
+  display: inline-block;
+}
+
+.user-menu {
+  display: block;
+  position: absolute;
+  top: 52px;
+  height: 0px;
+  margin: 0;
+  padding: 0px 15px 0px 10px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  background: #5f7c8a;
+  overflow: hidden;
+  list-style-type: none;
+  transition-duration: 0.2s;
 }
 
   /*  --- End of header ---  */
@@ -200,6 +236,7 @@ p.note-teaser {
 #note-dates #last-modified {
   text-align: right;
 }
+
   /*  --- End of index main ---  */
 
   /*  --- Registraion form ---  */
@@ -341,7 +378,7 @@ main.login-form-container {
 
 div.login-form-container {
   width: 372px;
-  margin: 0 auto calc(50vh - 160px) auto;
+  margin: 0 auto calc(50vh - 140px) auto;
   padding: 10px 85px;
   border: 1px solid #abbdc4;
   border-radius: 5px;

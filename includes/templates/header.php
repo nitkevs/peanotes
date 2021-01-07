@@ -29,30 +29,9 @@ HTML;
 
 if ($user->id >= 1) {
 $page_header .= <<<HTML
-        <style>
-          #header-user-menu {
-            display: inline-block;
-
-          }
-
-          .user-menu {
-    position: absolute;
-    display: block;
-    height: 0px;
-    overflow: hidden;
-    transition-duration: 0.2s;
-    background: #5f7c8a;
-    top: 52px;
-    padding: 0px 15px 0px 10px;
-    margin: 0;
-    list-style-type: none;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-          }
-        </style>
         <a href="/">Мои заметки</a>
         <a href="note-edit.php">Новая заметка</a>
-        <div id="header-user-menu"><a href="javascript: openMenu(this);">{$user->name} ({$user->id})</a>
+        <div id="header-user-menu"><a href="javascript: openMenu(this);">{$user->name}</a>
           <ul class="user-menu">
           <li><a href="view_profile.php">Профиль</a></li>
           <li><a href="user_settings.php">Настройки</a></li>
@@ -66,23 +45,4 @@ $page_header .= <<<HTML
         <a href="help.php">Справка</a>
       </nav>
     </header>
-
-    <script>
-      let menuOpened = false;
-      let headerUserMenu = document.getElementById('header-user-menu');
-      let headerUserMenuOpener = headerUserMenu.querySelector('a');
-      let headerUserMenuContent = headerUserMenu.querySelector('ul');
-      function openMenu(menu) {
-
-        if (!menuOpened) {
-          headerUserMenuContent.style.height = "94px";
-          menuOpened = true;
-        } else {
-          headerUserMenuContent.style.height = "0px";
-          menuOpened = false;
-        }
-      }
-
-
-    </script>
 HTML;

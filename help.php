@@ -44,4 +44,5 @@ $favicon = "/images/icons/favicon.ico";
   </p>
   </main>
   </body>
+  <script src="js/header.js"></script>
 </html>

@@ -65,14 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     </main>
   </body>
-  <script>
-    let noteTitle = document.getElementById('note-title');
-    let noteContent = document.getElementById('note-content');
-    function formSubmit() {
-      if (!(noteTitle.value || noteContent.value)) {
-        alert ('Пустая заметка не может быть сохранена.\nЗаполните хотя бы одно поле!');
-        return false;
-      }
-   }
-  </script>
+  <script src="js/header.js"></script>
+  <script src="js/note-edit.js"></script>
 </html>

@@ -81,4 +81,5 @@ $name = $_GET['name'] ?? $name;
     </main>
   <script src="js/registration-form.js"></script>
   </body>
+  <script src="js/header.js"></script>
 </html>

@@ -77,6 +77,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
     </div>
     </main>
   </body>
+  <script src="js/header.js"></script>
   <script>
   <?php if (empty($error_message)): ?>
     let errorMessage = document.getElementById('login-error-message');

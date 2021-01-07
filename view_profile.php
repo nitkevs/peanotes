@@ -39,24 +39,10 @@ $user_groups_list = array(
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="shortcut icon" href="<?= $favicon ?>">
-    <style>
-      .grid-container {
-        display: grid;
-        margin-top: 18px;
-        row-gap: 10px;
-/*         align-items: center; */
-      }
-      .two-columns {
-        grid-template-columns: 150px 300px;
-      }
-      .user-property {
-        font-weight: bold;
-      }
-    </style>
   </head>
   <body>
 <?= $page_header ?>
-    <main class="gretting">
+    <main>
     <h1><?= $title ?></h1>
       <div class="grid-container two-columns">
 <?php if ($user->group === 1):?>
@@ -69,4 +55,5 @@ $user_groups_list = array(
       </div>
     </main>
   </body>
+  <script src="js/header.js"></script>
 </html>

@@ -52,4 +52,5 @@ $log = @file_get_contents("db_errors.log");
     </p>
     </main>
   </body>
+  <script src="js/header.js"></script>
 </html>
