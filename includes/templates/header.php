@@ -31,8 +31,8 @@ if ($user->id >= 1) {
 $page_header .= <<<HTML
         <a href="/">Мои заметки</a>
         <a href="note-edit.php">Новая заметка</a>
-        <div id="header-user-menu"><a href="javascript: openMenu(this);">{$user->name}<span class=dropdown> &#8964;</span></a>
-          <ul class="user-menu">
+        <div id="header-user-menu"><a href="javascript: menu.toggle();">{$user->name}<img src="/images/dropdown.png"></a>
+          <ul id="user-menu">
           <li><a href="view_profile.php">Профиль</a></li>
           <li><a href="user_settings.php">Настройки</a></li>
           <li><a href="logout.php">Выйти</a></li>

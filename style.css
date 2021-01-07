@@ -124,7 +124,7 @@ header #logo a:hover {
   display: inline-block;
 }
 
-.user-menu {
+#user-menu {
   display: block;
   position: absolute;
   top: 52px;
@@ -137,14 +137,6 @@ header #logo a:hover {
   overflow: hidden;
   list-style-type: none;
   transition-duration: 0.2s;
-}
-
-span.dropdown {
-  display: inline-block;
-  height: 20px;
-  vertical-align: middle;
-  font-size: 15px;
-  line-height: 15px;
 }
 
   /*  --- End of header ---  */
