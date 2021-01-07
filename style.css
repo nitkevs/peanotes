@@ -139,6 +139,14 @@ header #logo a:hover {
   transition-duration: 0.2s;
 }
 
+span.dropdown {
+  display: inline-block;
+  height: 20px;
+  vertical-align: middle;
+  font-size: 15px;
+  line-height: 15px;
+}
+
   /*  --- End of header ---  */
 
   /*  --- Index main ---  */
