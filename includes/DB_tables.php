@@ -10,7 +10,7 @@
 */
 
 // Таблица содержит все заметки проекта.
-$query = "CREATE TABLE IF NOT EXISTS `pn_notes` (`id` int(8) PRIMARY KEY AUTO_INCREMENT, `title` text, `content` text, `timestamp` varchar(10) NOT NULL UNIQUE, `last_modified` varchar(10))";
+$query = "CREATE TABLE IF NOT EXISTS `pn_notes` (`id` int(8) PRIMARY KEY AUTO_INCREMENT, `owner_id` int(8), `title` text, `content` text, `timestamp` varchar(10) NOT NULL UNIQUE, `last_modified` varchar(10))";
 
 $result = mysqli_query($db_connection, $query);
 

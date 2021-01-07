@@ -29,7 +29,7 @@ $favicon = "/images/icons/favicon.ico";
 $title = "Peanotes";
 
 // Читаем БД, извлекам все заметки и записываем в массив $notes
-$query = "SELECT * FROM `pn_notes` ORDER BY `id` DESC";
+$query = "SELECT * FROM `pn_notes` WHERE `owner_id` = {$user->id} ORDER BY `id` DESC";
 $result = mysqli_query($db_connection, $query);
 for ($notes = []; $row = mysqli_fetch_assoc($result); $notes[] = $row);
 

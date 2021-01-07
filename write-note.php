@@ -11,10 +11,17 @@
 require_once './includes/DB_connection.php';
 require_once './includes/DB_tables.php';
 require_once './includes/classes/Note.php';
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
-session_start();
+if (!session_id()) session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  require_once './includes/set_session.php';
+}
 
 $note = new Note();
+$user = new User();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 
 // Функция записывает данные об ошибке в сессию PHP.
 // Затем их использует главная страница для показа этих ошибок.
@@ -56,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   } else { // Сработает, если создаётся новая заметка
     $note->timestamp = $current_timestamp;
-    $query = "INSERT INTO `pn_notes` SET `title` = '{$note->title}', `content` = '{$note->content}', `timestamp` = '{$note->timestamp}'";
+    $query = "INSERT INTO `pn_notes` SET `owner_id` = {$user->id}, `title` = '{$note->title}', `content` = '{$note->content}', `timestamp` = '{$note->timestamp}'";
     $result = mysqli_query($db_connection, $query) or send_error_message('Ошибка записи', mysqli_error($db_connection), $query);
   }
 
