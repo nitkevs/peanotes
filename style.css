@@ -88,11 +88,15 @@ header {
   padding: 5px 0;
 }
 
+#header-navigation a {
+  margin-left: 13px;
+  font-weight: bold;
+  font-style: italic;
+}
+
 header a {
   display: inline-block;
-  margin-left: 13px;
   color: #fff;
-  font-weight: bold;
   text-decoration: none;
 }
 
@@ -140,7 +144,6 @@ header #logo a:hover {
 #header-user-menu ~ a {
   margin-left: 0;
 }
-
 
 #user-menu {
   display: block;
