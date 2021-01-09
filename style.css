@@ -167,8 +167,9 @@ header #logo a:hover {
   line-height: 22px;
 }
 
-div#note-content {
+#note-content {
   padding: 14px 36px;
+  word-wrap: break-word;
 }
 
 #notes-list ul {
