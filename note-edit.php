@@ -25,15 +25,17 @@ if (!isset($_SESSION['user_id'])) {
 
 $user = new User();
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
-$favicon = "/images/icons/favicon.ico";
-$title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $note->is_edited = $_POST['edit-note'];
   $note->id = $_POST['note-id'];
-  $note->title = $_POST['note-title'];
-  $note->content = $_POST['note-content'];
+  $note->title = htmlspecialchars($_POST['note-title']);
+  $note->content = htmlspecialchars($_POST['note-content']);
 }
+
+$favicon = "/images/icons/favicon.ico";
+$title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
+
 ?>
 <!DOCTYPE html>
 <html>
