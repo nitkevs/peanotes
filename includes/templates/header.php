@@ -20,22 +20,22 @@ HTML;
 
 if (empty($user->id)) {
 $page_header .= <<<HTML
-        <a href="logout.php">Войти</a>
-        <a href="registration-form.php">Регистрация</a>
+        <a href="/logout.php">Войти</a>
+        <a href="/registration-form.php">Регистрация</a>
 HTML;
 }
 
 // if ($user->id === 1){}
 
-if ($user->id >= 1) {
+if ($user->group >= 1) {
 $page_header .= <<<HTML
         <a href="/">Мои заметки</a>
-        <a href="note-edit.php">Новая заметка</a>
+        <a href="/note-edit.php">Новая заметка</a>
         <div id="header-user-menu"><a href="javascript: menu.toggle(event);">{$user->name}<img src="/images/dropdown.png"></a>
           <ul id="user-menu">
-          <li><a href="view_profile.php">Профиль</a></li>
-          <li><a href="user_settings.php">Настройки</a></li>
-          <li><a href="logout.php">Выйти</a></li>
+          <li><a href="/view_profile.php">Профиль</a></li>
+          <li><a href="/user_settings.php">Настройки</a></li>
+          <li><a href="/logout.php">Выйти</a></li>
           </ul>
         </div>
 HTML;
