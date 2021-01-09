@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 $favicon = "/images/icons/favicon.ico";
-$title = ($note->title !== NULL) ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
+$title = ($note->is_edited === "1") ? "Редактировать заметку «{$note->title}»" : "Добавление новой заметки";
 
 ?>
 <!DOCTYPE html>
