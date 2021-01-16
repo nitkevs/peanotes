@@ -34,7 +34,7 @@ if (!session_id()) session_start();
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 $favicon = "/images/icons/favicon.ico";
 
-$name = $_GET['name'] ?? $name;
+$name = $_GET['name'] ? htmlspecialchars($_GET['name']) : $name;
 
 ?>
 <!DOCTYPE html>

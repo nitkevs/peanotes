@@ -32,7 +32,7 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 
 $title = "Вход";
 $error_message = "";
-$login = $_GET['login'] ?? null;
+$login = $_GET['login'] ? htmlspecialchars($_GET['login']) : null;
 
 if (isset($_GET['user-does-not-exist'])) {
   $error_message = "Пользователь {$_GET['non-existent-name']} не найден. Вы можете <a href=\"/registration-form.php?name={$_GET['non-existent-name']}\">зарегистрироваться</a> с таким именем.";
