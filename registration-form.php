@@ -51,11 +51,11 @@ $name = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : $name;
     <h1>Регистрация</h1>
     <p>Поля, отмеченные звёздочками обязательны для заполнения.</p>
     <form action="" method="post" id="register-form" class="grid-container two-columns">
-    <?php
-      if ($error_message) {
-        echo "<div id=\"reg-errors\" class=\"error-message\">{$error_message}</div>";
-      }
-    ?>
+<?php if ($error_message): ?>
+    <div id="reg-errors" class="error-message">
+      <?= $error_message ?>
+    </div>
+<?php endif; ?>
       <label for="name" class="required">Имя:</label>
       <input type="text" id="login" name="name" maxlength="24" required pattern="[A-Za-z0-9_]{1,24}" value="<?= $name ?>">
       <div class="description">Имя может состоять из <span class="highlight">латинских букв, цифр и знака _ и быть длинной не более 24 символов</span>.</div>

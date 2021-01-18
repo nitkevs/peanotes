@@ -60,9 +60,11 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
   <body>
   <?= $page_header ?>
     <main  class="login-form-container">
+<?php if ($error_message): ?>
     <div id="login-error-message" class="error-message">
       <?= $error_message ?>
     </div>
+<?php endif; ?>
     <div class="login-form-container">
       <h1 class="centered"><?= $title ?></h1>
       <form action="primary_auth.php" method="post" id="login-form">
@@ -79,10 +81,6 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
   </body>
   <script src="js/header.js"></script>
   <script>
-  <?php if (empty($error_message)): ?>
-    let errorMessage = document.getElementById('login-error-message');
-    errorMessage.style.opacity = "0"; // Делаем пустой блок вывода ошибок невидимым.
-  <?php endif; ?>
   <?php if (isset($ban_timeout)): ?>// Если из адресгой строки получено значение таймаута бана
 
     let timer = document.getElementById('timer');
