@@ -35,7 +35,7 @@ $page_header .= <<<HTML
           <ul id="user-menu">
           <li><a href="/view_profile.php">Профиль</a></li>
           <li><a href="/user_settings.php">Настройки</a></li>
-          <li><a href="/logout.php">Выйти</a></li>
+          <li><a href="/scripts/logout.php">Выйти</a></li>
           </ul>
         </div>
 HTML;
