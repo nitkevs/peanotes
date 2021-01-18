@@ -77,6 +77,8 @@ if ($user_pass == get_hash($received_pass, $salt, HASH_KEY)) { // Если па�
   $_SESSION['user_login'] = $user_login;
   $_SESSION['user_group'] = $user_group;
   $_SESSION['user_email'] = $email;
+  $_SESSION['user_pass'] = $user_pass;
+  $_SESSION['user_salt'] = $salt;
 
   header("Location: /");
   exit;

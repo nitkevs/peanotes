@@ -26,5 +26,7 @@ class User {
     $this->login = $_SESSION['user_login'];
     $this->group = $_SESSION['user_group'];
     $this->email = $_SESSION['user_email'];
+    $this->pass = $_SESSION['user_pass'];
+    $this->salt = $_SESSION['user_salt'];
   }
 }

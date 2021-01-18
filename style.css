@@ -58,7 +58,7 @@ h2 {
 }
 
 .two-columns {
-  grid-template-columns: 150px 300px;
+  grid-template-columns: 180px 300px;
 }
 
 .user-property {
@@ -271,11 +271,7 @@ p.note-teaser {
   /*  --- Registraion form ---  */
 
 #register-form {
-  display: grid;
   margin: 34px 0px;
-  grid-template-columns: 180px 300px;
-  grid-template-rows: repeat(4, auto);
-  row-gap: 10px;
   align-items: center
 }
 
@@ -284,7 +280,8 @@ p.note-teaser {
   font-family: 'PT Sans', sans-serif;
 }
 
-#register-form button {
+#register-form button,
+#user-settings-form button {
   width: fit-content;
 }
 
@@ -440,4 +437,16 @@ div.login-form-container {
 }
 
   /*  --- End of edit note form ---  */
+
+  /*  --- User settings page ---  */
+
+#user-settings-error-message {
+  margin: 18px 0;
+  padding: 0 18px;
+  width: 480px;
+  text-align: center;
+}
+  /*  --- End of user settings page ---  */
+
+
 

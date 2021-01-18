@@ -65,6 +65,8 @@ if (isset($_COOKIE['session'])) { // Сработает, если сессия p
     $_SESSION['user_login'] = $user_login;
     $_SESSION['user_group'] = $user_group;
     $_SESSION['user_email'] = $email;
+    $_SESSION['user_pass'] = $user_pass;
+    $_SESSION['user_salt'] = $salt;
 
     } else  { // Если сессия из куки есть, но браузер не совпадает
     // удалить куку и сессию

@@ -34,7 +34,7 @@ if (!session_id()) session_start();
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 $favicon = "/images/icons/favicon.ico";
 
-$name = $_GET['name'] ? htmlspecialchars($_GET['name']) : $name;
+$name = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : $name;
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +50,7 @@ $name = $_GET['name'] ? htmlspecialchars($_GET['name']) : $name;
     <main>
     <h1>Регистрация</h1>
     <p>Поля, отмеченные звёздочками обязательны для заполнения.</p>
-    <form action="" method="post" id="register-form">
+    <form action="" method="post" id="register-form" class="grid-container two-columns">
     <?php
       if ($error_message) {
         echo "<div id=\"reg-errors\" class=\"error-message\">{$error_message}</div>";
@@ -65,7 +65,7 @@ $name = $_GET['name'] ? htmlspecialchars($_GET['name']) : $name;
       <div class="description">Пароль должен содержать по крайней мере одно число, одну заглавную и строчную буквы и быть длинной не менее 10 символов</div>
 
       <label for="confirm-password" class="required">Повторите пароль:</label>
-      <input type="password" id="confirm-password"  name="confirm-password" required>
+      <input type="password" id="confirm-password"  name="confirm-password">
       <div class="description">Пароли должны совпадать.</div>
 
       <label for="email">Адрес e-mail:</label>
@@ -79,7 +79,8 @@ $name = $_GET['name'] ? htmlspecialchars($_GET['name']) : $name;
     </form>
     <iframe src="term-conditions.php" id="term-conditions"></iframe>
     </main>
-  <script src="js/registration-form.js"></script>
   </body>
+  <script src="js/check-input-data.js"></script>
+  <script src="js/registration-form.js"></script>
   <script src="js/header.js"></script>
 </html>
