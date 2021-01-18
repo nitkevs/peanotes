@@ -67,7 +67,7 @@ if (isset($_GET['ban-expires']) and $_GET['ban-severity'] === "1") {
 <?php endif; ?>
     <div class="login-form-container">
       <h1 class="centered"><?= $title ?></h1>
-      <form action="primary_auth.php" method="post" id="login-form">
+      <form action="/scripts/primary_auth.php" method="post" id="login-form">
         <label for="login">Логин:</label>
         <input type="text" id="login" name="login" maxlength="24" required value="<?= $login ?>">
 
