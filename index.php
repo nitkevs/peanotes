@@ -98,7 +98,7 @@ $new_errors = (isset($_SESSION['error_message'])) ? true : false;
               <button title="Редактировать" name="edit-note" value="1" formaction="./note-edit.php" onclick="event.stopPropagation();">
                 <img src="images/icons/edit.png" alt="Редактировать">
               </button>
-              <button title="Удалить" name="delete-note" value="1" formaction="./write-note.php" onclick="event.stopPropagation();">
+              <button title="Удалить" name="delete-note" value="1" formaction="/scripts/write-note.php" onclick="event.stopPropagation();">
                 <img src="images/icons/delete.png" alt="Удалить">
               </button>
               <input type="hidden" name="note-id" value="{$a_note['id']}">

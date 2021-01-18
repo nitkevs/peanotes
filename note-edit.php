@@ -49,7 +49,7 @@ $title = ($note->is_edited === "1") ? "Редактировать заметку
 <?= $page_header ?>
     <main>
     <h1><?= $title ?>:</h1>
-    <form action="./write-note.php" method="post" id="note-edit-form" onsubmit="return formSubmit(); ">
+    <form action="/scripts/write-note.php" method="post" id="note-edit-form" onsubmit="return formSubmit(); ">
       <label for="note-title">Заголовок:</label><br>
       <input type="text" size="45" maxlength="60" id="note-title" name="note-title" value="<?= $note->title ?>"><br>
       <label for="note-content">Текст заметки:</label><br>

@@ -8,9 +8,9 @@
 *
 */
 
-require_once './includes/DB_connection.php';
-require_once './includes/DB_tables.php';
-require_once './includes/classes/Note.php';
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_connection.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/DB_tables.php";
+require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/Note.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/classes/User.php";
 
 if (!session_id()) session_start();
@@ -69,5 +69,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 }
 
-header("Location: ./");
+header("Location: /");
 exit;
