@@ -27,6 +27,7 @@ $user = new User();
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/templates/header.php";
 $favicon = "/images/icons/favicon.ico";
 $title = "Peanotes";
+$_SESSION['error_message'] = $_SESSION['error_message'] ?? "";
 
 // Читаем БД, извлекам все заметки и записываем в массив $notes
 $query = "SELECT * FROM `pn_notes` WHERE `owner_id` = {$user->id} ORDER BY `id` DESC";
@@ -38,7 +39,7 @@ function show_errors() {
   echo "<div id=\"db-errors\" class=\"error-message\">{$_SESSION['my_err_mess']}<br>{$_SESSION['error_message']}<br><a href=\"errors_log.php\">Просмотреть лог ошибок</a></div>";
 
   // Записать ошибки в лог файл.
-  $file_content = file_get_contents("db_errors.log");
+  $file_content = file_exists ("db_errors.log") ? file_get_contents("db_errors.log") : null;
 
   if ($file_content) {
     $message_separator = "\n\n----------------------------------\n\n";
@@ -56,7 +57,7 @@ function show_errors() {
   unset($_SESSION['query']);
 }
 
-$new_errors = (isset($_SESSION['error_message'])) ? true : false;
+$new_errors = (!empty($_SESSION['error_message'])) ? true : false;
 
 ?>
 

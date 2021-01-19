@@ -20,12 +20,10 @@ HTML;
 
 if (empty($user->id)) {
 $page_header .= <<<HTML
-        <a href="/logout.php">Войти</a>
+        <a href="/login.php">Войти</a>
         <a href="/registration-form.php">Регистрация</a>
 HTML;
 }
-
-// if ($user->id === 1){}
 
 if ($user->group >= 1) {
 $page_header .= <<<HTML
