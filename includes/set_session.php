@@ -21,6 +21,7 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_vars.php";
 
+$_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
 if (isset($_COOKIE['session'])) { // Сработает, если сессия php была окончена, но куки-файл авторизации найден.
  // Получаем сессию соответствующую полученной куке

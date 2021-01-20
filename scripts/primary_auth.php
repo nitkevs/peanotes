@@ -23,6 +23,8 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_vars.php";
 
+$redirect_uri = $_SESSION['REQUEST_URI'] ?? "/";
+
 // Переводим логин в нижний регистр, потому что пользователь
 // может вводить вместо него никнейм, выбранный во время
 // регистрации. Если ему так удобнее, переводим никнейм в нижний
@@ -80,7 +82,7 @@ if ($user_pass == get_hash($received_pass, $salt, HASH_KEY)) { // Если па�
   $_SESSION['user_pass'] = $user_pass;
   $_SESSION['user_salt'] = $salt;
 
-  header("Location: /");
+  header("Location: {$redirect_uri}");
   exit;
 
 } else { // Если пароль не соответствует
