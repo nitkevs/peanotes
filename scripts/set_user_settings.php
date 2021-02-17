@@ -61,7 +61,7 @@ if (!empty($_POST['password']) and $_POST['password'] === $_POST['confirm-passwo
 // Проверить, правилен ли старый пароль.
 $inputed_old_pass = get_hash($_POST['old-password'], $user->salt, HASH_KEY);
 if ($inputed_old_pass !== $user->pass) {
-  $error_message .= "<p>Пароль не верен.</p>\n\n";
+  $error_message .= "<p>Старый пароль не верен.</p>\n\n";
 }
 
 if ($email !== $user->email and empty($error_message)) {
