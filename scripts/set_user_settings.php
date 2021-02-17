@@ -79,8 +79,10 @@ if (!empty($new_pass) and $confirm_pass and empty($error_message)) {
   mysqli_query($db_connection, $query) or die("$query");
   $user->pass = $_SESSION['user_pass'] = $new_pass;
   $user->salt = $_SESSION['user_salt'] = $new_salt;
+  header ("Location: /");
+  exit;
+} else {
+  $_SESSION['error_message'] = $error_message;
+  header ("Location: /user_settings.php");
+  exit;
 }
-
-$_SESSION['error_message'] = $error_message;
-header ("Location: /user_settings.php");
-exit;
