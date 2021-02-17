@@ -35,11 +35,6 @@ if (!isset($_SESSION['user_id'])) {
 $error_message = "";
 $user = new User();
 
-function validate_input_data($pattern, $data) { // вынести в global functions + из /includes/registration.php
-  preg_match($pattern, $data, $match);
-  return $match[0]?? null;
-}
-
 if (!empty($_POST['email'])) {
   $email = validate_input_data("/^[a-zA-Z0-9_\-]+@[a-zA-Z0-9_\.\-]+$/", $_POST['email']);
 }

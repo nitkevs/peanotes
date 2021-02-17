@@ -48,3 +48,11 @@ function remove_session($session_hash) {
   session_destroy();
   unset($_SESSION['user_id']);
 }
+
+// Функция проверяет соответствие введённых пользователем данных,
+// регулярному выражению. Возвращает сами эти данные, или null,
+// в случае не соответствия.
+function validate_input_data($pattern, $data) {
+  preg_match($pattern, $data, $match);
+  return $match[0]?? null;
+}

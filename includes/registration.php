@@ -18,14 +18,6 @@ require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/key.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_functions.php";
 require_once "{$_SERVER['DOCUMENT_ROOT']}/includes/global_vars.php";
 
-// Функция проверяет соответствие введённых пользователем данных,
-// регулярному выражению. Возвращает сами эти данные, или null,
-// в случае не соответствия.
-function validate_input_data($pattern, $data) {
-  preg_match($pattern, $data, $match);
-  return $match[0]?? null;
-}
-
 // Функция проверяет, есть ли заданный логин в БД.
 function check_login($name, $db_connection) {
   $query = "SELECT `login` FROM `pn_users` WHERE `login` = '".strtolower($name)."'";
