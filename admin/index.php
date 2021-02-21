@@ -46,7 +46,7 @@ $title = 'Управление сайтом';
 
     <div class="">
       <h1 class="centered"><?= $title ?></h1>
-
+      <a href="/admin/users.php">Пользователи</a>
     </div>
     </main>
   </body>
