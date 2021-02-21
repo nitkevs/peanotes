@@ -14,7 +14,7 @@ ini_set('display_startup_errors', 1);
 
 $page_header = <<<HTML
     <header>
-      <div id="logo"><a href="./">Peanotes</div>
+      <div id="logo"><a href="/">Peanotes</div>
       <nav id="header-navigation">
 HTML;
 
@@ -29,6 +29,17 @@ if ($user->group >= 1) {
 $page_header .= <<<HTML
         <a href="/">Мои заметки</a>
         <a href="/note-edit.php">Новая заметка</a>
+HTML;
+}
+
+if ($user->group === 1) {
+$page_header .= <<<HTML
+        <a href="/admin/">Управление</a>
+HTML;
+}
+
+if ($user->group >= 1) {
+$page_header .= <<<HTML
         <div id="header-user-menu"><a href="javascript: menu.toggle(event);">{$user->name}<img src="/images/dropdown.png"></a>
           <ul id="user-menu">
           <li><a href="/view_profile.php">Профиль</a></li>
